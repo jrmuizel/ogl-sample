@@ -1,7 +1,7 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -37,11 +37,13 @@
 #	libspec.pm -- perl script to parse .spec files
 #
 # DESCRIPTION:
-#	This perl script parsest the .spec format for each function
+#       This perl script parses the .spec format for each function
 #	interface, generates values into global veriables, and then calls
 #	the user's main() function to generate output.  The main() function
 #	grabs the appropriate info from the global variables.
-#	The user can also specify an initialize() and finalize() function.
+#       The user can also specify an initialize() and finalize() function,
+#       and a passthru() function used for data to be passed through
+#       intact.
 #
 # AUTHORS:
 #	Initial authors of awk script:
@@ -56,7 +58,7 @@
 
 #
 # $Date$ $Revision$
-# $Header: //depot/main/tools/libspec/libspec.pm#5 $
+# $Header: //depot/main/tools/libspec/libspec.pm#7 $
 #
 
 use Getopt::Long;
@@ -782,6 +784,51 @@ $specline = 0;
 while(<SPEC>) {
     $specline++;
     chop;
+
+##############################################################################
+#
+#  Parse passthru declaration
+#
+#  SPEC FILE BNF
+#       <passthru-declaration> ::= "passthru: " <anything>*
+#
+# If anything follows the colon, the first space or tab (only) is stripped.
+# This allows e.g. properly indented C declarations.
+#
+##############################################################################
+    if (/^passthru:/) {
+	s/^passthru:[ \t]?//;
+        passthru($_);
+        next;
+    }
+
+##############################################################################
+#
+#  Parse newcategory declaration
+#
+#  SPEC FILE BNF
+#       <newcategory-declaration> ::= "newcategory: " <category-name>
+#
+##############################################################################
+    if (/^newcategory:/) {
+	s/^newcategory:[ \t]*//;
+        newcategory($_);
+        next;
+    }
+
+##############################################################################
+#
+#  Parse endcategory declaration
+#
+#  SPEC FILE BNF
+#       <endcategory-declaration> ::= "endcategory: " 
+#
+##############################################################################
+    if (/^endcategory:/) {
+        endcategory();
+        next;
+    }
+
 ##############################################################################
 #
 #  Parse comment lines and comments from spec file

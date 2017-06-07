@@ -2,7 +2,7 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -85,9 +85,12 @@ wire2f.perlmap: wire2f.map mapper.pl
 gl.wire: spec2wire.map
 	ln -s spec2wire.map gl.wire
 
-typelist: ../gl.spec ../glu.spec
+#@@ 'extra.types' is a temporary workaround until the
+#@@ registry gl.spec can be used instead of the SI gl.spec
+typelist: ../gl.spec ../glu.spec extra.types
 	$(PERL) $(SPECTYPESGEN) ../gl.spec > $@.tmp
 	$(PERL) $(SPECTYPESGEN) ../glu.spec >> $@.tmp
+	cat extra.types >> $@.tmp
 	sort < $@.tmp | uniq > $@
 	$(RM) $@.tmp
 

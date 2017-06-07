@@ -124,7 +124,7 @@ BUILDING
 	> #if BuildGlxExt
 	> GLXLIBDIR = GL
 	> #endif
-	>
+	> 
 	78c82
 	< SUBDIRS = $(BERKDIR) xtrans $(LINTSUBDIRS) $(FONTSUBDIR)
 	---

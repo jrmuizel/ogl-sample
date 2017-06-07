@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -44,7 +44,7 @@
 /*
 ** Make m an identity matrix
 */
-void __gluMakeIdentityd(GLdouble m[16])
+static void __gluMakeIdentityd(GLdouble m[16])
 {
     m[0+4*0] = 1; m[0+4*1] = 0; m[0+4*2] = 0; m[0+4*3] = 0;
     m[1+4*0] = 0; m[1+4*1] = 1; m[1+4*2] = 0; m[1+4*3] = 0;
@@ -52,7 +52,7 @@ void __gluMakeIdentityd(GLdouble m[16])
     m[3+4*0] = 0; m[3+4*1] = 0; m[3+4*2] = 0; m[3+4*3] = 1;
 }
 
-void __gluMakeIdentityf(GLfloat m[16])
+static void __gluMakeIdentityf(GLfloat m[16])
 {
     m[0+4*0] = 1; m[0+4*1] = 0; m[0+4*2] = 0; m[0+4*3] = 0;
     m[1+4*0] = 0; m[1+4*1] = 1; m[1+4*2] = 0; m[1+4*3] = 0;
@@ -154,7 +154,7 @@ gluLookAt(GLdouble eyex, GLdouble eyey, GLdouble eyez, GLdouble centerx,
     glTranslated(-eyex, -eyey, -eyez);
 }
 
-void __gluMultMatrixVecd(const GLdouble matrix[16], const GLdouble in[4],
+static void __gluMultMatrixVecd(const GLdouble matrix[16], const GLdouble in[4],
 		      GLdouble out[4])
 {
     int i;
@@ -171,7 +171,7 @@ void __gluMultMatrixVecd(const GLdouble matrix[16], const GLdouble in[4],
 /*
 ** inverse = invert(src)
 */
-int __gluInvertMatrixd(const GLdouble src[16], GLdouble inverse[16])
+static int __gluInvertMatrixd(const GLdouble src[16], GLdouble inverse[16])
 {
     int i, j, k, swap;
     double t;
@@ -236,7 +236,8 @@ int __gluInvertMatrixd(const GLdouble src[16], GLdouble inverse[16])
     return GL_TRUE;
 }
 
-void __gluMultMatricesd(const GLdouble a[16], const GLdouble b[16], GLdouble r[16])
+static void __gluMultMatricesd(const GLdouble a[16], const GLdouble b[16],
+				GLdouble r[16])
 {
     int i, j;
 

@@ -2,7 +2,7 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -33,7 +33,7 @@
 # compliant with the OpenGL(R) version 1.2.1 Specification.
 #
 # $Date$ $Revision$
-# $Header: //depot/main/gfx/lib/glu/libnurbs/internals/GNUmakefile#10 $
+# $Header: //depot/main/gfx/lib/glu/libnurbs/internals/GNUmakefile#12 $
 
 include $(ROOT)/usr/include/make/commondefs
 
@@ -55,7 +55,6 @@ HFILES = \
 	bin.h \
 	bufpool.h \
 	cachingeval.h \
-	checker.h \
 	coveandtiler.h \
 	curve.h \
 	curvelist.h \
@@ -70,14 +69,12 @@ HFILES = \
 	gridvertex.h \
 	hull.h \
 	jarcloc.h \
-	knot.h \
 	knotvector.h \
 	mapdesc.h \
 	maplist.h \
 	mesher.h \
 	monotonizer.h \
 	myassert.h \
-	mybstring.h \
 	mymath.h \
 	mysetjmp.h \
 	mystdio.h \

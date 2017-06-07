@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -82,7 +82,7 @@ inline Real intersectHoriz(Real x1, Real y1, Real x2, Real y2, Real y)
 }
 
 //compare the heads of the two chains
-static compChainHeadInY(monoChain* mc1, monoChain* mc2)
+static int compChainHeadInY(monoChain* mc1, monoChain* mc2)
 {
   return compV2InY(mc1->getHead()->head(), mc2->getHead()->head());
 }

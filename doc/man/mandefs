@@ -1,6 +1,6 @@
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -61,6 +61,21 @@ OPTIONS = standard nfs dwb trans ftn emacs pascal pl1 5080 ada t3270 pfa diags \
 # Change /pubs/tools symbolic name to $(MPATH) in .so's
 FIXPUBS     = sed 's:^\.so[	 ]*/pubs/tools/:.so $(MPATH)/:'
 
+# script to translate the first line of the manpage
+# from '\"! tbl | eqn | mmdoc
+# to '\" t e
+# which is what the linux man command needs.
+
+ifeq ($(OS),Linux)
+FIXROFF = awk '/\\\"!/ { gsub(/!/, ""); \
+			 gsub(/eqn/, "e"); \
+			 gsub(/tbl/, "t"); \
+			 gsub(/mmdoc/, ""); \
+			 gsub(/\|/, ""); print $0; next; } { print $0; }'
+else
+FIXROFF = cat
+endif
+
 # Convert .TH lines to all uppercase when making online pages (mostly
 # for GL man pages).  If line is .TH \*(}x, don't uppercase it.
 THTOUPPER   = \
@@ -93,7 +108,7 @@ ADDMAGIC = ( case `head -1 $<` in \
 	       "'\\\""*)	cat $< ;; \
 	       _*) $(DEPTH)/tools/glman $(PREFIX) $(DEPTH) $< $(APIFILE) $(M4OPTS) ;; \
 	       *)	echo "'\\\"macro stdmacro" ; cat $< ;; \
-	     esac ) | $(FIXPUBS) | $(ADDSTRINGS)
+	     esac ) | $(FIXPUBS) | $(ADDSTRINGS) | $(FIXROFF)
 
 # If GL page starts '\"!, second line is assumed to contain '\"macro stdmacro,
 # and it is changed to '\"macro mn; if page doesn't start with '\",

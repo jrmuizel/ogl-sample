@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -117,7 +117,7 @@ bezierPatchMesh *bezierPatchMeshMake(int maptype, float umin, float umax, int us
   if(maptype == GL_MAP2_VERTEX_3) dimension = 3;
   else if (maptype==GL_MAP2_VERTEX_4) dimension = 4;
   else {
-    fprintf(stderr, "error in inMap2f, maptype=%i is wrong, maptype,map is invalid\n");
+    fprintf(stderr, "error in inMap2f, maptype=%i is wrong, maptype,map is invalid\n", maptype);
     return NULL;
   }
   
@@ -214,7 +214,7 @@ void bezierPatchMeshPutPatch(bezierPatchMesh *bpm, int maptype, float umin, floa
     bpm->bpatch_texcoord = bezierPatchMake2(umin, vmin, umax, vmax, uorder, vorder, 4, ustride, vstride, ctlpoints);
     break;    
   default:
-    fprintf(stderr, "error in bezierPatchMeshPutPatch, maptype=%i is wrong, maptype,map is invalid\n");
+    fprintf(stderr, "error in bezierPatchMeshPutPatch, maptype=%i is wrong, maptype,map is invalid\n", maptype);
   }
 }
   

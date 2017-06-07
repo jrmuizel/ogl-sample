@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -463,7 +463,7 @@ void OpenGLSurfaceEvaluator::inMap2f(int k,
   if(k == GL_MAP2_VERTEX_3) k=3;
   else if (k==GL_MAP2_VERTEX_4) k =4;
   else {
-    printf("error in inMap2f, maptype=%i is wrong, k,map is not updated\n");
+    printf("error in inMap2f, maptype=%i is wrong, k,map is not updated\n", k);
     return;
   }
   

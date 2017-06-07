@@ -1,25 +1,25 @@
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
 # Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
-# 
+#
 # http://oss.sgi.com/projects/FreeB
-# 
+#
 # Note that, as provided in the License, the Software is distributed on an
 # "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
 # DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
 # CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
 # PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-# 
+#
 # Original Code. The Original Code is: OpenGL Sample Implementation,
 # Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
 # Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
 # Copyright in any portions created by third parties is as indicated
 # elsewhere herein. All Rights Reserved.
-# 
+#
 # Additional Notice Provisions: The application programming interfaces
 # established by SGI in conjunction with the Original Code are The
 # OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
@@ -31,7 +31,7 @@
 # compliant with the OpenGL(R) version 1.2.1 Specification.
 #
 # $Date$ $Revision$
-# $Header: //depot/main/tools/include/commondefs#39 $
+# $Header: //depot/main/tools/include/commondefs#41 $
 
 COMMONRULES=$(ROOT)/usr/include/make/commonrules
 
@@ -47,10 +47,18 @@ GFXINCLUDESRC = $(TOPDIR)/gfx/include
 OGLLIBSRC = $(TOPDIR)/gfx/lib/opengl
 GLXLIBSRC = $(TOPDIR)/glx
 
+# SGI Free Software B license
+OSSCOPYRIGHT = $(TOPDIR)/doc/release/OSSCOPYRIGHT
+
 # shell-related defs
 SHELL	= /bin/sh
 AWK	= awk
+ifeq ($(OS),IRIX)
 ECHO	= /bin/echo
+endif
+ifeq ($(OS),Linux)
+ECHO	= /bin/echo -e
+endif
 RM	= rm -f
 MV	= mv
 PERL	= perl
@@ -88,9 +96,9 @@ ifeq ($(OS),IRIX)
 #	1174:	parameter/variable "???" was declared but never referenced
 #	1201:	trailing comma is nonstandard (last element in struct assnment)
 #	1209:	controlling expression is constant
-#	1506:	implicit conversion from "???" to "???": rounding, sign 
+#	1506:	implicit conversion from "???" to "???": rounding, sign
 #		extension, or loss of accuracy may result
-#	3170:	"???" not marked as intrinsic because it is not declared 
+#	3170:	"???" not marked as intrinsic because it is not declared
 #		as a function
 #
 WARN = -fullwarn \
@@ -188,9 +196,9 @@ VCFLAGS = $(VCDEFS) $(VCINCS) $(VCOPTS)
 LCFLAGS = $(LCDEFS) $(LCINCS) $(LCOPTS)
 GCFLAGS = $(GCDEFS) $(GCINCS) $(GCOPTS)
 
-COPTS   = $(VCOPTS) $(LCOPTS) $(GCOPTS)
-CDEFS   = $(VCDEFS) $(LCDEFS) $(GCDEFS)
-CINCS   = $(VCINCS) $(LCINCS) $(GCINCS)
+COPTS	= $(VCOPTS) $(LCOPTS) $(GCOPTS)
+CDEFS	= $(VCDEFS) $(LCDEFS) $(GCDEFS)
+CINCS	= $(VCINCS) $(LCINCS) $(GCINCS)
 
 #
 # CXX flags are decomposed using the same hierarchy as C flags.
@@ -248,8 +256,8 @@ LDDSOOPTS  = $(VLDDSOOPTS) $(LLDDSOOPTS) $(GLDDSOOPTS)
 LDDSOLIBS  = $(VLDDSOLIBS) $(LLDDSOLIBS) $(GLDDSOLIBS)
 LDDSOFLAGS = $(LDDSOOPTS) $(LDDSOLIBS) $(ENDIAN)
 
-LDOPTS  = $(VLDOPTS) $(LLDOPTS) $(GLDOPTS)
-LDLIBS  = $(VLDLIBS) $(LLDLIBS) $(GLDLIBS)
+LDOPTS	= $(VLDOPTS) $(LLDOPTS) $(GLDOPTS)
+LDLIBS	= $(VLDLIBS) $(LLDLIBS) $(GLDLIBS)
 LDFLAGS = $(LDOPTS) $(LDLIBS) $(ENDIAN)
 
 # where to install libraries
@@ -273,9 +281,9 @@ VASFLAGS = $(VASDEFS) $(VASINCS) $(VASOPTS)
 LASFLAGS = $(LASDEFS) $(LASINCS) $(LASOPTS)
 GASFLAGS = $(GASDEFS) $(GASINCS) $(GASOPTS)
 
-ASOPTS  = $(VASOPTS) $(LASOPTS) $(GASOPTS)
-ASDEFS  = $(VASDEFS) $(LASDEFS) $(GASDEFS)
-ASINCS  = $(VASINCS) $(LASINCS) $(GASINCS)
+ASOPTS	= $(VASOPTS) $(LASOPTS) $(GASOPTS)
+ASDEFS	= $(VASDEFS) $(LASDEFS) $(GASDEFS)
+ASINCS	= $(VASINCS) $(LASINCS) $(GASINCS)
 
 override GASOPTS = $(OPTIMIZER) $(MKDEPOPT)
 override GASDEFS = $(GCDEFS)
@@ -284,7 +292,7 @@ override GASINCS = $(GCINCS)
 #
 # the install command to use
 #
-INSTALL	= $(ROOT)/usr/bin/gfxinstall
+INSTALL = $(ROOT)/usr/bin/gfxinstall
 INSTALLFLAGS = -v -m 0444
 
 #
@@ -296,13 +304,13 @@ INSTALLFLAGS = -v -m 0444
 # Never use just $(CCF), etc. in rules that link executables; LDFLAGS
 # needs to be included after your objects in the command line.
 #
-ASF     = $(AS) $(ASFLAGS)
-CXXF    = $(CXX) $(CXXFLAGS)
-C++F    = $(CXXF)
-CCF     = $(CC) $(CFLAGS)
-LDF     = $(LD) $(LDFLAGS)
-LEXF    = $(LEX) $(LFLAGS)
-YACCF   = $(YACC) $(YFLAGS)
+ASF	= $(AS) $(ASFLAGS)
+CXXF	= $(CXX) $(CXXFLAGS)
+C++F	= $(CXXF)
+CCF	= $(CC) $(CFLAGS)
+LDF	= $(LD) $(LDFLAGS)
+LEXF	= $(LEX) $(LFLAGS)
+YACCF	= $(YACC) $(YFLAGS)
 
 # Targets
 
@@ -339,10 +347,10 @@ SUBDIRS_MAKERULE= \
 # working on the next SUBDIR if the previous one failed. Its not quite
 # as compact a rule as the previous ones.
 # A standard usage would be:
-#       default install $(COMMONTARGS): $(_FORCE)
-#               $(MAKE) __DORULE=$@ $(SUBDIRS)
-#       $(SUBDIRS): $(_FORCE)
-#               @$(NSUBDIR_MAKERULE)
+#	default install $(COMMONTARGS): $(_FORCE)
+#		$(MAKE) __DORULE=$@ $(SUBDIRS)
+#	$(SUBDIRS): $(_FORCE)
+#		@$(NSUBDIR_MAKERULE)
 
 NSUBDIR_MAKERULE= \
 	if test ! -d $@; then \
@@ -356,14 +364,14 @@ NSUBDIR_MAKERULE= \
 
 #
 # Convenience file list macros:
-#       - Commondefs defines the following lists: SOURCES, enumerating all
-#         source files; OBJECTS, the .o files derived from compilable source;
-#         and DIRT, which lists intermediates and temporary files to be
-#         removed by clean.
-#       - The including (parent) makefile may define source file lists for
-#         the standard suffixes: CFILES for .c, ASFILES for .s, YFILES for
-#         .y, etc.  We combine all such lists into SOURCES.  The including
-#         makefile need not define CFILES &c before including commondefs.
+#	- Commondefs defines the following lists: SOURCES, enumerating all
+#	  source files; OBJECTS, the .o files derived from compilable source;
+#	  and DIRT, which lists intermediates and temporary files to be
+#	  removed by clean.
+#	- The including (parent) makefile may define source file lists for
+#	  the standard suffixes: CFILES for .c, ASFILES for .s, YFILES for
+#	  .y, etc.  We combine all such lists into SOURCES.  The including
+#	  makefile need not define CFILES &c before including commondefs.
 #
 SOURCES=$(HFILES) $(ASFILES) $(CCFILES) $(C++FILES) $(CXXFILES) $(CFILES) \
 	$(EFILES) $(FFILES) $(LFILES) $(PFILES) $(RFILES) $(SHFILES) $(YFILES)
@@ -382,8 +390,8 @@ LO2=$(LO1:.lxx=.o)
 LO3=$(LO2:.L=.o)
 LOALL=$(LO3)
 OBJECTS=$(ASFILES:.s=.o) $(CXXOALL) $(CFILES:.c=.o) $(EFILES:.e=.o) \
-        $(FFILES:.f=.o) $(LOALL) $(PFILES:.p=.o) $(RFILES:.r=.o) \
-        $(YOALL)
+	$(FFILES:.f=.o) $(LOALL) $(PFILES:.p=.o) $(RFILES:.r=.o) \
+	$(YOALL)
 
 #
 # dependency file(s)

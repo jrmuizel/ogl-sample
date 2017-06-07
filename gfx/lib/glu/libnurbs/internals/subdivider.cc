@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -848,7 +848,7 @@ Subdivider::freejarcs( Bin& bin )
     bin.adopt();	/* XXX - should not be necessary */
 
     Arc_ptr jarc;
-    while( jarc = bin.removearc() ) {
+    while( (jarc = bin.removearc()) != NULL ) {
 	if( jarc->pwlArc ) jarc->pwlArc->deleteMe( pwlarcpool ); jarc->pwlArc = 0;
 	if( jarc->bezierArc) jarc->bezierArc->deleteMe( bezierarcpool ); jarc->bezierArc = 0;
 	jarc->deleteMe( arcpool );

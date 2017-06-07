@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -76,10 +76,10 @@ gluErrorString(GLenum errorCode)
 	return (const unsigned char *) gluErrorStrings[errorCode - GLU_INVALID_ENUM];
     }
     if ((errorCode >= GLU_NURBS_ERROR1) && (errorCode <= GLU_NURBS_ERROR37)) {
-	return (const unsigned char *) __glNURBSErrorString(errorCode - (GLU_NURBS_ERROR1 - 1));
+	return (const unsigned char *) __gluNURBSErrorString(errorCode - (GLU_NURBS_ERROR1 - 1));
     }
     if ((errorCode >= GLU_TESS_ERROR1) && (errorCode <= GLU_TESS_ERROR8)) {
-	return (const unsigned char *) __glTessErrorString(errorCode - (GLU_TESS_ERROR1 - 1));
+	return (const unsigned char *) __gluTessErrorString(errorCode - (GLU_TESS_ERROR1 - 1));
     }
 
     return 0;

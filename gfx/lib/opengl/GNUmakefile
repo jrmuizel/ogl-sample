@@ -2,7 +2,7 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -33,7 +33,7 @@
 # compliant with the OpenGL(R) version 1.2.1 Specification.
 #
 # $Date$ $Revision$
-# $Header: //depot/main/gfx/lib/opengl/GNUmakefile#22 $
+# $Header: //depot/main/gfx/lib/opengl/GNUmakefile#23 $
 
 COMMONPREF = standard
 include defs/ALL.defs
@@ -57,8 +57,6 @@ GLMAKEFILES =				 \
 	generated/GNUmakefile		 \
 	drivers/$(GLPRODUCT)/GNUmakefile \
 	$(NULL)
-
-ECHO = /bin/echo
 
 ifeq ($(GLOS),"NONE")
 DIRS += $(GLOS)

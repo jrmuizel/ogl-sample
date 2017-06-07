@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -444,7 +444,7 @@ Subdivider::classify_tailonleft_s( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail at left, head on line */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 0, val ) == 0x02 );
 	j->clearitail();
 
@@ -471,7 +471,7 @@ Subdivider::classify_tailonleft_t( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail at left, head on line */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 1, val ) == 0x02 );
 	j->clearitail();
 
@@ -498,7 +498,7 @@ Subdivider::classify_headonleft_s( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail on line, head at left */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 0, val ) == 0x20 );
 
 	j->setitail();
@@ -526,7 +526,7 @@ Subdivider::classify_headonleft_t( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail on line, head at left */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 1, val ) == 0x20 );
 	j->setitail();
 
@@ -554,7 +554,7 @@ Subdivider::classify_tailonright_s( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail at right, head on line */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 0, val ) == 0x12);
 	
 	j->clearitail();
@@ -582,7 +582,7 @@ Subdivider::classify_tailonright_t( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail at right, head on line */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 1, val ) == 0x12);
 	
 	j->clearitail();
@@ -610,7 +610,7 @@ Subdivider::classify_headonright_s( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail on line, head at right */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 0, val ) == 0x21 );
     
 	j->setitail();
@@ -638,7 +638,7 @@ Subdivider::classify_headonright_t( Bin& bin, Bin& in, Bin& out, REAL val )
     /* tail on line, head at right */
     Arc_ptr j;
 
-    while( j = bin.removearc() ) {
+    while( (j = bin.removearc()) != NULL ) {
 	assert( arc_classify( j, 1, val ) == 0x21 );
     
 	j->setitail();

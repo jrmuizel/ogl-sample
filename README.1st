@@ -1,5 +1,5 @@
-    Release notes for the OpenGL(R) Sample Implementation (Jan. 25, 2000)
-    Jon Leech
+    Release notes for the OpenGL(R) Sample Implementation (Aug. 4, 2000)
+    Jon Leech, Craig Dunwoody, Dave Shreiner
     OpenGL Core Engineering
     SGI
 
@@ -20,6 +20,9 @@ INTRODUCTION
     on problems (and fixes) to the ogl-sample@oss.sgi.com mailing list
     will be greatly appreciated, so the build process gets easier for
     everyone.
+
+    For the latest list of changes to the SI, please see the file
+    main/doc/release/relnotes.
 
 
 TREE STRUCTURE

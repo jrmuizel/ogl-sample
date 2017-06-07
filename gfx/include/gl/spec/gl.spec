@@ -3,26 +3,26 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
 # Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
-# 
+#
 # http://oss.sgi.com/projects/FreeB
-# 
+#
 # Note that, as provided in the License, the Software is distributed on an
 # "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
 # DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
 # CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
 # PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-# 
+#
 # Original Code. The Original Code is: OpenGL Sample Implementation,
 # Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
 # Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
 # Copyright in any portions created by third parties is as indicated
 # elsewhere herein. All Rights Reserved.
-# 
+#
 # Additional Notice Provisions: The application programming interfaces
 # established by SGI in conjunction with the Original Code are The
 # OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
@@ -35,7 +35,7 @@
 #
 
 # $Date$ $Revision$
-# $Header: //depot/main/gfx/include/gl/spec/gl.spec#19 $
+# $Header: //depot/main/gfx/include/gl/spec/gl.spec#21 $
 
 required-props:
 param:		retval retained
@@ -60,12 +60,14 @@ extension:	not_implemented soft WINSOFT
 ###############################################################################
 #
 # GLX opcodes
-#	glxsingle:		101-159
-#	glxropcode:		1-196 (1.2 core; ropcode 140 unused?!)
-#				197-213 (1.2.1 ARB calls; formerly 3072-3088)
-#				2048-2081 (SGI extensions)
-#	TEMPORARILY UNUSED?	3072-3088 (ARB extensions)
-#				4096-4123 (1.2 core and multivendor EXT)
+#	glxsingle:		101-159     (1.0-1.2 core)
+#				160	    (ARB_texture_compression)
+#	glxropcode:		1-196	    (1.2 core; ropcode 140 unused?!)
+#				197-213     (ARB_multitexture)
+#				214-219     (ARB_texture_compression)
+#				2048-2081   (SGI extensions)
+#				4096-4123   (1.2 core and multivendor EXT)
+#				4124-4142   (EXT extensions)
 #
 # When reserving new glxropcodes, update in oddball:
 #     gfx/lib/opengl/doc/glspec/extensions.reserved to indicate this
@@ -5586,7 +5588,6 @@ ActiveTextureARB(texture)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	 glxropcode	 3072
 	offset		374
 
 ClientActiveTextureARB(texture)
@@ -5634,7 +5635,6 @@ MultiTexCoord1dvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	 glxropcode	 3073
 	offset		377
 
 MultiTexCoord1fARB(target, s)
@@ -5667,7 +5667,6 @@ MultiTexCoord1fvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3074
 	offset		379
 
 MultiTexCoord1iARB(target, s)
@@ -5700,7 +5699,6 @@ MultiTexCoord1ivARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3075
 	offset		381
 
 MultiTexCoord1sARB(target, s)
@@ -5733,7 +5731,6 @@ MultiTexCoord1svARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3076
 	offset		383
 
 MultiTexCoord2dARB(target, s, t)
@@ -5767,7 +5764,6 @@ MultiTexCoord2dvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3077
 	offset		385
 
 MultiTexCoord2fARB(target, s, t)
@@ -5801,7 +5797,6 @@ MultiTexCoord2fvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3078
 	offset		387
 
 MultiTexCoord2iARB(target, s, t)
@@ -5835,7 +5830,6 @@ MultiTexCoord2ivARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3079
 	offset		389
 
 MultiTexCoord2sARB(target, s, t)
@@ -5869,7 +5863,6 @@ MultiTexCoord2svARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3080
 	offset		391
 
 MultiTexCoord3dARB(target, s, t, r)
@@ -5904,7 +5897,6 @@ MultiTexCoord3dvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3081
 	offset		393
 
 MultiTexCoord3fARB(target, s, t, r)
@@ -5939,7 +5931,6 @@ MultiTexCoord3fvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3082
 	offset		395
 
 MultiTexCoord3iARB(target, s, t, r)
@@ -5974,7 +5965,6 @@ MultiTexCoord3ivARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3083
 	offset		397
 
 MultiTexCoord3sARB(target, s, t, r)
@@ -6009,7 +5999,6 @@ MultiTexCoord3svARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3084
 	offset		399
 
 MultiTexCoord4dARB(target, s, t, r, q)
@@ -6045,7 +6034,6 @@ MultiTexCoord4dvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3085
 	offset		401
 
 MultiTexCoord4fARB(target, s, t, r, q)
@@ -6081,7 +6069,6 @@ MultiTexCoord4fvARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3086
 	offset		403
 
 MultiTexCoord4iARB(target, s, t, r, q)
@@ -6117,7 +6104,6 @@ MultiTexCoord4ivARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3087
 	offset		405
 
 MultiTexCoord4sARB(target, s, t, r, q)
@@ -6153,7 +6139,6 @@ MultiTexCoord4svARB(target, v)
 	glsflags	ignore
 	glsoffset	0
 	glspage		0
-#	glxropcode	3088
 	offset		407
 
 ###############################################################################

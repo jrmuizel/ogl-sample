@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -136,8 +136,8 @@ private:
     static void		grabGLMatrix( GLfloat vmat[4][4] );
     static void		transform4d( GLfloat A[4], GLfloat B[4], 
 				GLfloat mat[4][4] );
-    static void		multmatrix4d( GLfloat n[4][4], GLfloat left[4][4], 
-				GLfloat right[4][4] );
+    static void		multmatrix4d( GLfloat n[4][4], const GLfloat left[4][4],
+				const GLfloat right[4][4] );
 
    int                  callbackFlag;
 };

@@ -94,7 +94,7 @@ END {
   printf "_define(_header,@<dnl\n"
   printf "_setup()dnl\n"
   printf "_define(_cname,$1)dnl\n"
-  printf ".TH %s$1\n", prefix
+  printf ".TH %s$1 3G\n", prefix
   printf ".SH NAME\n"
   printf ".B \""
   for (i=0; i<numNames; i++)

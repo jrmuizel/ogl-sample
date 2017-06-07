@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -505,7 +505,7 @@ rightChain->print();
      else
        {
 	 ret_leftCornerWhere = 2; //right
-	 ret_leftCornerIndex = tempI;
+	 ret_leftCornerIndex = (int)tempI;
        }
     }
   else if(index2> rightChainEndIndex) /*index1<=leftChainEndIndex*/
@@ -527,7 +527,7 @@ rightChain->print();
       else
 	{
 	  Real tempMax = leftChain->getVertex(tempI)[0];
-	  for(i=tempI; i<= leftChainEndIndex; i++)
+	  for(i=(int)tempI; i<= leftChainEndIndex; i++)
 	    if(leftChain->getVertex(i)[0] > tempMax)
 	      {
 		tempI = i;
@@ -552,7 +552,7 @@ rightChain->print();
 	  else
 	    {
 	      ret_rightCornerWhere = 0;
-	      ret_rightCornerIndex = tempI;
+	      ret_rightCornerIndex = (int)tempI;
 	    }
 	}
       
@@ -1165,7 +1165,7 @@ void findRightGridIndices(directedLine* topEdge, Int firstGridIndex, Int lastGri
       if(uinterc == uMin)
 	ret_indices[k] = 0;
       else
-	ret_indices[k] =  ceil((((uinterc-uMin)/(uMax - uMin)) * (n_ulines-1))) -1;
+	ret_indices[k] = (int)ceil((((uinterc-uMin)/(uMax - uMin)) * (n_ulines-1))) -1;
 /*
 if(ret_indices[k] >= grid->get_n_ulines())
   {
@@ -1178,7 +1178,7 @@ if(ret_indices[k] < 0)
   exit(0);
 }
 */
-      ret_innerIndices[k] = ceil ((((tempMinU-uMin)/(uMax - uMin)) * (n_ulines-1))) -1;
+      ret_innerIndices[k] = (int)ceil ((((tempMinU-uMin)/(uMax - uMin)) * (n_ulines-1))) -1;
 
       tempMinU = uinterc;
     }

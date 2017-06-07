@@ -2,7 +2,7 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -51,7 +51,12 @@ MOTIF_CFILES = \
 	$(NULL)
 
 ifeq ($(HAVE_MOTIF),1)
+LCDEFS += -D__GLX_MOTIF=1
 CFILES += $(MOTIF_CFILES)
+ifeq ($(OS),Linux)
+# assume motif is in / rather than $ROOT
+LCINCS += -I/usr/X11R6/include
+endif
 endif
 
 INSTALLFLAGS += -srcdst

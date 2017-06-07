@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -841,14 +841,14 @@ static void sampleCompTopSimpleOpt(gridWrap* grid,
 	 monoTriangulationRecGenOpt(dec_chain->getVertex(tempI),
 				    botVertex,
 				    inc_chain, i, inc_end,
-				    dec_chain, tempI+1, dec_end,
+				    dec_chain, (int)(tempI+1), dec_end,
 				    pStream);
 	 //recursively do the rest
 	 sampleCompTopSimpleOpt(grid,
 				gridV+1,
 				topVertex, inc_chain->getVertex(i),
 				inc_chain, inc_current, i-1,
-				dec_chain, dec_current, tempI,
+				dec_chain, dec_current, (int)tempI,
 				pStream);
        }
       else

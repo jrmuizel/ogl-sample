@@ -1,0 +1,57 @@
+Descriptions of files:
+
+Source Files
+------------
+
+spec2wire.map	Map spec types to wire types.
+
+wire2api.map	Map wire types to C API types (a one-to-one mapping).
+
+api2c.map	Maps C API types to C base types (for generating typedefs).
+
+nop.pl		Generates a typemap for the spec API. It just passes
+		types through, unchanged (i.e., a nop).
+
+typemap.pl	Generates typemaps for the C and FORTRAN APIs.
+
+mapper.pl	Generates Perl code to implement *.map maps.
+
+Generated Files
+---------------
+
+capi.tm		A typemap for the C API.
+
+fapi.tm		A typemap for the FORTRAN API.
+
+nop.tm		A typemap for the spec API (just passes the spec types
+		through, unchanged).
+
+missing		List types that are named in specfiles but missing
+		from spec2wire.map (not actually a file, just prints to
+		stdio).
+
+extra		List types in spec2wire.map that are not used in
+		specfiles (not a file either, prints to stdio).
+
+Conversion Process and Intermediate Files
+-----------------------------------------
+
+    spec2wire.map	->  spec2wire.perlmap
+    wire2c.map		->  wire2c.perlmap
+    wire2f.map		->  wire2f.perlmap
+
+    gl.spec	       \
+    glu.spec		->  typelist
+    extra.types        /
+
+    spec2wire.perlmap  \
+    wire2c.perlmap	->  capi.tm
+    typelist	       /
+
+    spec2wire.perlmap  \
+    wire2f.perlmap	->  fapi.tm
+    typelist	       /
+
+    gl.spec		->  nop.tm
+
+    spec2wire.map	->  (symlink) gl.wire

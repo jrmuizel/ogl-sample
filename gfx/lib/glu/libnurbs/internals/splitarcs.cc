@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -81,7 +81,7 @@ Subdivider::split( Bin& bin, Bin& left, Bin& right, int param, REAL value )
     }
 
     Arc_ptr jarc, *last, *lptr;
-    for( last = list; jarc=intersections.removearc(); last++ )
+    for( last = list; (jarc=intersections.removearc()) != NULL; last++ )
 	*last = jarc;
 
     if( param == 0 ) { /* sort into increasing t order */

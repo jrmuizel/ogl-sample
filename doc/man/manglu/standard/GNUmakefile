@@ -2,7 +2,7 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -70,7 +70,7 @@ LOCALPRINTLISTFILTER = | sed -e '/^intro\.p$$/d' | (echo intro.p ; cat )
 default:
 	$(MAKE) manpages
 
-headers headers_install libs libs_install install apps:
+headers headers_install libs libs_install apps:
 
 distsi: default
 	$(MAKE) $(COMMONPREF)$@
@@ -79,6 +79,12 @@ distoss:
 	$(MAKE) $(COMMONPREF)$@
 
 manpages: $(patsubst %.gl,%.3gl,$(wildcard *.gl))
+
+install: manpages
+	for file in *.3gl; do \
+	    install -D -m 644 $$file  ${ROOT}/usr/man/man3/glu`basename $$file .3gl`.3gl ; \
+        done
+	
 
 clobber:
 	rm -f *.3gl

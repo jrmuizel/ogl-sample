@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -146,8 +146,8 @@ GLUnurbs::useGLMatrices(const GLfloat modelMatrix[16],
 {
     GLfloat vmat[4][4];
 
-    multmatrix4d((GLfloat (*)[4]) vmat, (GLfloat (*)[4]) modelMatrix, 
-	    (GLfloat (*)[4]) projMatrix);
+    multmatrix4d(vmat, (const GLfloat (*)[4]) modelMatrix, 
+	    (const GLfloat (*)[4]) projMatrix);
     loadCullingMatrix((GLfloat (*)[4]) vmat);
     loadSamplingMatrix((const GLfloat (*)[4]) vmat, (const GLint *) viewport);
 }
@@ -293,7 +293,8 @@ GLUnurbs::transform4d(GLfloat A[4], GLfloat B[4], GLfloat mat[4][4])
  *---------------------------------------------------------------------
  */
 void
-GLUnurbs::multmatrix4d (GLfloat n[4][4], GLfloat left[4][4], GLfloat right[4][4])
+GLUnurbs::multmatrix4d (GLfloat n[4][4], const GLfloat left[4][4],
+		 const GLfloat right[4][4])
 {
     transform4d ((GLfloat *) n[0],(GLfloat *) left[0],(GLfloat (*)[4]) right);
     transform4d ((GLfloat *) n[1],(GLfloat *) left[1],(GLfloat (*)[4]) right);

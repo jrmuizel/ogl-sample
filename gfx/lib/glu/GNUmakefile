@@ -2,7 +2,7 @@
 #
 # License Applicability. Except to the extent portions of this file are
 # made subject to an alternative license as permitted in the SGI Free
-# Software License B, Version 1.0 (the "License"), the contents of this
+# Software License B, Version 1.1 (the "License"), the contents of this
 # file are subject only to the provisions of the License. You may not use
 # this file except in compliance with the License. You may obtain a copy
 # of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -39,14 +39,16 @@ COMMONPREF = standard
 include $(ROOT)/usr/include/make/commondefs
 include $(ROOT)/usr/include/libspec/libspecdefs
 
-TARGET = libGLU.so
+TARGET = libGLU.so.1
 
 TARGETS = $(TARGET)
 
 LLDLIBS = -lGL -lm
 ifeq ($(OS),Linux)
-# There should be a cleaner, version-independent way to do this
-LLDLIBS += -L/usr/lib/gcc-lib/i386-redhat-linux/egcs-2.91.66 -lstdc++
+# use g++ rather than ld
+LD=g++
+LDDSOFLAGS=-shared -Wl,-soname=$(TARGET) -Wl,--whole-archive
+LDFLAGS=-Wl,--no-whole-archive
 else
 LLDLIBS += -lc -lC
 endif

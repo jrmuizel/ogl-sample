@@ -1,7 +1,7 @@
 /*
 ** License Applicability. Except to the extent portions of this file are
 ** made subject to an alternative license as permitted in the SGI Free
-** Software License B, Version 1.0 (the "License"), the contents of this
+** Software License B, Version 1.1 (the "License"), the contents of this
 ** file are subject only to the provisions of the License. You may not use
 ** this file except in compliance with the License. You may obtain a copy
 ** of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
@@ -36,64 +36,65 @@
 */
 
 #include <stdlib.h>
+#include "gluint.h"
 
-static char *__glNurbsErrors[] = {
-    ((char *)" "),
-    ((char *)"spline order un-supported"),
-    ((char *)"too few knots"),
-    ((char *)"valid knot range is empty"),
-    ((char *)"decreasing knot sequence knot"),
-    ((char *)"knot multiplicity greater than order of spline"),
-    ((char *)"endcurve() must follow bgncurve()"),
-    ((char *)"bgncurve() must precede endcurve()"),
-    ((char *)"missing or extra geometric data"),
-    ((char *)"can't draw pwlcurves"),
-    ((char *)"missing or extra domain data"),
-    ((char *)"missing or extra domain data"),
-    ((char *)"endtrim() must precede endsurface()"),
-    ((char *)"bgnsurface() must precede endsurface()"),
-    ((char *)"curve of improper type passed as trim curve"),
-    ((char *)"bgnsurface() must precede bgntrim()"),
-    ((char *)"endtrim() must follow bgntrim()"),
-    ((char *)"bgntrim() must precede endtrim()"),
-    ((char *)"invalid or missing trim curve"),
-    ((char *)"bgntrim() must precede pwlcurve()"),
-    ((char *)"pwlcurve referenced twice"),
-    ((char *)"pwlcurve and nurbscurve mixed"),
-    ((char *)"improper usage of trim data type"),
-    ((char *)"nurbscurve referenced twice"),
-    ((char *)"nurbscurve and pwlcurve mixed"),
-    ((char *)"nurbssurface referenced twice"),
-    ((char *)"invalid property"),
-    ((char *)"endsurface() must follow bgnsurface()"),
-    ((char *)"intersecting or misoriented trim curves"),
-    ((char *)"intersecting trim curves"),
-    ((char *)"UNUSED"),
-    ((char *)"unconnected trim curves"),
-    ((char *)"unknown knot error"),
-    ((char *)"negative vertex count encountered"),
-    ((char *)"negative byte-stride encounteed"),
-    ((char *)"unknown type descriptor"),
-    ((char *)"null control point reference"),
-    ((char *)"duplicate point on pwlcurve")
+static char *__gluNurbsErrors[] = {
+    " ",
+    "spline order un-supported",
+    "too few knots",
+    "valid knot range is empty",
+    "decreasing knot sequence knot",
+    "knot multiplicity greater than order of spline",
+    "gluEndCurve() must follow gluBeginCurve()",
+    "gluBeginCurve() must precede gluEndCurve()",
+    "missing or extra geometric data",
+    "can't draw piecewise linear trimming curves",
+    "missing or extra domain data",
+    "missing or extra domain data",
+    "gluEndTrim() must precede gluEndSurface()",
+    "gluBeginSurface() must precede gluEndSurface()",
+    "curve of improper type passed as trim curve",
+    "gluBeginSurface() must precede gluBeginTrim()",
+    "gluEndTrim() must follow gluBeginTrim()",
+    "gluBeginTrim() must precede gluEndTrim()",
+    "invalid or missing trim curve",
+    "gluBeginTrim() must precede gluPwlCurve()",
+    "piecewise linear trimming curve referenced twice",
+    "piecewise linear trimming curve and nurbs curve mixed",
+    "improper usage of trim data type",
+    "nurbs curve referenced twice",
+    "nurbs curve and piecewise linear trimming curve mixed",
+    "nurbs surface referenced twice",
+    "invalid property",
+    "gluEndSurface() must follow gluBeginSurface()",
+    "intersecting or misoriented trim curves",
+    "intersecting trim curves",
+    "UNUSED",
+    "unconnected trim curves",
+    "unknown knot error",
+    "negative vertex count encountered",
+    "negative byte-stride encounteed",
+    "unknown type descriptor",
+    "null control point reference",
+    "duplicate point on piecewise linear trimming curve",
 };
 
-const char *__glNURBSErrorString( int errno )
+const char *__gluNURBSErrorString( int errno )
 {
-    return __glNurbsErrors[errno];
+    return __gluNurbsErrors[errno];
 }
 
-static char *__glTessErrors[] = {
-    ((char *)" "),
-    ((char *)"gluTessBeginPolygon() must precede a gluTessEndPolygon()"),
-    ((char *)"gluTessBeginContour() must precede a gluTessEndContour()"),
-    ((char *)"gluTessEndPolygon() must follow a gluTessBeginPolygon()"),
-    ((char *)"gluTessEndContour() must follow a gluTessBeginContour()"),
-    ((char *)"a coordinate is too large"),
-    ((char *)"need combine callback"),
+static char *__gluTessErrors[] = {
+    " ",
+    "gluTessBeginPolygon() must precede a gluTessEndPolygon()",
+    "gluTessBeginContour() must precede a gluTessEndContour()",
+    "gluTessEndPolygon() must follow a gluTessBeginPolygon()",
+    "gluTessEndContour() must follow a gluTessBeginContour()",
+    "a coordinate is too large",
+    "need combine callback",
 };
 
-const char *__glTessErrorString( int errno )
+const char *__gluTessErrorString( int errno )
 {
-    return __glTessErrors[errno];
+    return __gluTessErrors[errno];
 } /* __glTessErrorString() */

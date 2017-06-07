@@ -1,9 +1,18 @@
     OpenGL 1.2.1 Sample Implementation Release Notes
 
-    Last modified August 9, 1999
+    Last modified August 4, 2000
+
+Most Recent Changes:
+
+  - Bug fixes in the build structure, GLU and GLW libraries, and 
+    integration testing against XFree86 3.3.6.
 
 Open Issues:
 
   - GLX 1.3 protocol for OpenGL 1.2 and ARB_multitexture exists, but the
     new GLX 1.3 APIs (pbuffers, make current read, etc.) are not
     provided yet.
+
+  - Implementation support for XFree86 4.0.
+
+  - Support for newly approved ARB extensions.
