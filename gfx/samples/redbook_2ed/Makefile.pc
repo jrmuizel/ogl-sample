@@ -1,0 +1,82 @@
+##!nmake
+
+!include <win32.mak>
+
+CFILES  = \
+	aaindex.c \
+	aapoly.c \
+	aargb.c \
+	accanti.c \
+	accpersp.c \
+	alpha.c \
+	alpha3D.c \
+	bezcurve.c \
+	bezmesh.c \
+	bezsurf.c \
+	checker.c \
+	clip.c \
+	colormat.c \
+	cube.c \
+	dof.c \
+	double.c \
+	drawf.c \
+	feedback.c \
+	fog.c \
+	fogindex.c \
+	font.c \
+	hello.c \
+	image.c \
+	light.c \
+	lines.c \
+	list.c \
+	material.c \
+	mipmap.c \
+	model.c \
+	movelight.c \
+	pickdepth.c \
+	picksquare.c \
+	planet.c \
+	polyoff.c \
+	polys.c \
+	quadric.c \
+	robot.c \
+	scene.c \
+	select.c \
+	smooth.c \
+	stencil.c \
+	stroke.c \
+	surface.c \
+	teapots.c \
+	tess.c \
+	tesswind.c \
+	texbind.c \
+	texgen.c \
+	texprox.c \
+	texsub.c \
+	texturesurf.c \
+	torus.c \
+	trim.c \
+	unproject.c \
+	varray.c \
+	wrap.c \
+	$(NULL)
+
+LCFLAGS	= $(cflags) $(cdebug) -DWIN32
+
+LLDLIBS	= $(lflags) $(ldebug) glut32.lib glu32.lib opengl32.lib $(guilibs)
+
+TARGETS = $(CFILES:.c=.exe)
+
+default: $(TARGETS)
+
+clean:
+	@del *.obj
+
+clobber: clean
+	@del *.exe
+
+$(TARGETS): $*.obj
+        $(link) -out:$@ $** $(LLDLIBS)
+
+.c.obj: 
+	$(CC) $(LCFLAGS) $<

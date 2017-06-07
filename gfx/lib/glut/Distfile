@@ -1,0 +1,51 @@
+#
+# $Header: //depot/main/gfx/lib/glut/Distfile#4 $
+#
+
+DISTFILES_SI = \
+	glut.h /xc/include/GL/glut.h \
+	Imakefile /xc/lib/GL/libglut/Imakefile \
+	glut_8x13.c /xc/lib/GL/libglut/glut_8x13.c \
+	glut_9x15.c /xc/lib/GL/libglut/glut_9x15.c \
+	glut_bitmap.c /xc/lib/GL/libglut/glut_bitmap.c \
+	glut_bwidth.c /xc/lib/GL/libglut/glut_bwidth.c \
+	glut_cindex.c /xc/lib/GL/libglut/glut_cindex.c \
+	glut_cursor.c /xc/lib/GL/libglut/glut_cursor.c \
+	glut_dials.c /xc/lib/GL/libglut/glut_dials.c \
+	glut_dstr.c /xc/lib/GL/libglut/glut_dstr.c \
+	glut_event.c /xc/lib/GL/libglut/glut_event.c \
+	glut_ext.c /xc/lib/GL/libglut/glut_ext.c \
+	glut_fullscrn.c /xc/lib/GL/libglut/glut_fullscrn.c \
+	glut_get.c /xc/lib/GL/libglut/glut_get.c \
+	glut_hel10.c /xc/lib/GL/libglut/glut_hel10.c \
+	glut_hel12.c /xc/lib/GL/libglut/glut_hel12.c \
+	glut_hel18.c /xc/lib/GL/libglut/glut_hel18.c \
+	glut_init.c /xc/lib/GL/libglut/glut_init.c \
+	glut_input.c /xc/lib/GL/libglut/glut_input.c \
+	glut_menu.c /xc/lib/GL/libglut/glut_menu.c \
+	glut_mesa.c /xc/lib/GL/libglut/glut_mesa.c \
+	glut_modifier.c /xc/lib/GL/libglut/glut_modifier.c \
+	glut_mroman.c /xc/lib/GL/libglut/glut_mroman.c \
+	glut_overlay.c /xc/lib/GL/libglut/glut_overlay.c \
+	glut_roman.c /xc/lib/GL/libglut/glut_roman.c \
+	glut_shapes.c /xc/lib/GL/libglut/glut_shapes.c \
+	glut_space.c /xc/lib/GL/libglut/glut_space.c \
+	glut_stroke.c /xc/lib/GL/libglut/glut_stroke.c \
+	glut_swidth.c /xc/lib/GL/libglut/glut_swidth.c \
+	glut_tablet.c /xc/lib/GL/libglut/glut_tablet.c \
+	glut_teapot.c /xc/lib/GL/libglut/glut_teapot.c \
+	glut_tr10.c /xc/lib/GL/libglut/glut_tr10.c \
+	glut_tr24.c /xc/lib/GL/libglut/glut_tr24.c \
+	glut_util.c /xc/lib/GL/libglut/glut_util.c \
+	glut_vidresize.c /xc/lib/GL/libglut/glut_vidresize.c \
+	glut_warp.c /xc/lib/GL/libglut/glut_warp.c \
+	glut_win.c /xc/lib/GL/libglut/glut_win.c \
+	glut_winmisc.c /xc/lib/GL/libglut/glut_winmisc.c \
+	glutbitmap.h /xc/lib/GL/libglut/glutbitmap.h \
+	glutint.h /xc/lib/GL/libglut/glutint.h \
+	glutstroke.h /xc/lib/GL/libglut/glutstroke.h \
+	layerutil.c /xc/lib/GL/libglut/layerutil.c \
+	layerutil.h /xc/lib/GL/libglut/layerutil.h \
+	MonoRoman.stroke /xc/lib/GL/libglut/MonoRoman.stroke \
+	Roman.stroke /xc/lib/GL/libglut/Roman.stroke \
+	$(NULL)

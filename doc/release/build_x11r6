@@ -1,0 +1,63 @@
+0. Before starting trying to build an X server with OpenGL extension,
+   we must have had a X consortium X11R6 build tree.
+
+1. Unzip/untar the OpenGL distribution into your X consortium
+   X11R6 build tree. The distribution extracts into the following
+   directory hierarchy:
+
+    xc                              Additions to XFree86 source tree
+    xc/doc                          Man pages and specifications
+    xc/include/GL                   Client header files
+    xc/lib/GL                       Client library source code
+    xc/programs/Xserver/include/GL  Server header files
+    xc/programs/Xserver/GL          Server source code
+    xc/programs/Xserver/GL/opengl   Server OpenGL renderer
+
+2. Set $XTOPDIR must point to the top of the X tree.
+
+3. Edit the file $XTOPDIR/xc/config/cf/host.def for parts to be built.
+
+    #define GlxModule NO
+    #define BuildGlxExt YES
+    #define GlxStaticServerLib GL/libdixGL.a GL/opengl/libGLcore.a
+    #define GlxStaticServerDir GL
+
+   Building the GLw widget requires Motif. It is disabled by default.
+   If you have Motif installed:
+
+    #define BuildGlw YES
+
+4. Make the following change to $XTOPDIR/xc/programs/Xserver/Imakefile.
+   This will cause the server GLX library to be built when BuildGlxExt
+   is defined and the non-stub Glx library is being built:
+
+    <         GLXDIR =
+    ---
+    >         GLXDIR = GlxStaticServerDir
+
+5. Make the following change to $XTOPDIR/xc/lib/Imakefile. This will
+   cause the client GLX library to be built when BuildGlxExt is defined.
+
+    > #if BuildGlxExt
+    > GLXLIBDIR = GL
+    > #endif
+
+    < SUBDIRS = $(BERKDIR) xtrans $(LINTSUBDIRS) $(FONTSUBDIR)
+    ---
+    > SUBDIRS = $(BERKDIR) xtrans $(LINTSUBDIRS) $(FONTSUBDIR) $(GLXLIBDIR)
+
+8) You should be able to build the server and client libraries
+   normally at this point by descending to $XTOPDIR/xc and 'make World'.
+
+9) The conformance tests and sample programs are not built by 'make World'.
+   You can build them as follows:
+
+    % cd $XTOPDIR/xc/test/GL/conform
+    % imake -I$XTOPDIR/xc/config/cf -DTOPDIR=$XTOPDIR/xc
+    % make Makefiles
+    % make
+
+    % cd $XTOPDIR/xc/contrib/GL
+    % imake -I$XTOPDIR/xc/config/cf -DTOPDIR=$XTOPDIR/xc
+    % make Makefiles
+    % make

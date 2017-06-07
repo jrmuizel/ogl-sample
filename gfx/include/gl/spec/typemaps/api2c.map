@@ -1,0 +1,14 @@
+GLenum		enum
+GLchar		char
+
+GLshort		short
+GLint		int
+
+GLuchar		unsigned char
+GLushort 	unsigned short
+GLuint		unsigned int
+
+GLfloat		float
+GLdouble	double
+
+GLvoid		void

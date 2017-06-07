@@ -1,0 +1,27 @@
+/GNUmakefile/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/Imakefile/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/dict-list.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/dict.c/1.1.1.1/Wed Jan 26 10:30:45 2000/-ko/
+/dict.h/1.1.1.1/Wed Jan 26 10:30:45 2000/-ko/
+/geom.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/geom.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/memalloc.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/memalloc.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/mesh.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/mesh.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/normal.c/1.1.1.1/Wed Jan 26 10:30:45 2000/-ko/
+/normal.h/1.1.1.1/Wed Jan 26 10:30:45 2000/-ko/
+/priorityq-heap.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/priorityq-heap.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/priorityq-sort.h/1.1.1.1/Wed Jan 26 10:30:45 2000/-ko/
+/priorityq.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/priorityq.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/render.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/render.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/sweep.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/sweep.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/tess.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/tess.h/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/tessmono.c/1.1.1.1/Wed Jan 26 10:30:44 2000/-ko/
+/tessmono.h/1.1.1.1/Wed Jan 26 10:30:45 2000/-ko/
+D

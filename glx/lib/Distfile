@@ -1,0 +1,30 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/glx/lib/Distfile#4 $
+#
+
+DISTDIR_SI = /xc/lib/GL
+
+DISTFILES_SI = \
+	Imakefile \
+	clientattrib.c \
+	compsize.c \
+	eval.c \
+	g_render.c \
+	g_single.c \
+	g_vendpriv.c \
+	glxclient.h \
+	glxcmds.c \
+	glxext.c \
+	packrender.h \
+	packsingle.h \
+	packvendpriv.h \
+	pixel.c \
+	pixelstore.c \
+	render2.c \
+	renderpix.c \
+	single2.c \
+	singlepix.c \
+	size.h \
+	vertarr.c \
+	$(NULL)

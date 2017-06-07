@@ -1,0 +1,323 @@
+#
+# $Header: //depot/main/gfx/include/gl/spec/guidelines#3 $
+#
+
+		GUIDELINES FOR OPENGL IMPLEMENTERS
+		----------------------------------
+
+1. Division of labor
+====================
+
+OpenGL implementations can be divided into 2 parts:
+
+a. The window-system independent graphics "core".
+b. The window-system dependent support library.
+
+These are physically, usually, but not always, separated at the library level.
+Conceptually they are always separated.
+
+The window system library contains code, that is visible via an API, to the
+user.  Examples include GLX (for X windows) and WGL (for Microsoft Windows).
+
+Depending on the implementation, the GL core may be used from multiple places.
+Examples:
+
+* GLX indirect rendering:
+
+Because of the client/server nature of X, there are two window system 
+dependent libraries.  The client side (linked in the application to generate
+GLX protocol) and the server side (linked in the X server to decode GLX
+protocol).  The GL core is linked in the server-side GLX.  Decoded GLX
+rendering commands are dispatched to the GL core in the server for rendering.
+
+* GLX direct rendering:
+
+Again, there are two window system dependent libraries.  The client side
+and the server side.  The difference from GLX indirect rendering is that
+now the GL core is linked in the application.  The GLX server library still
+decodes some protocol, but not all the gl*() commands.  The GL API commands
+are directly dispatched to the application linked GL core for rendering
+directly to hardware without going through the GLX protocol encoding/decoding.A
+
+
+In an implementation containing both of the above models, the GL core will
+be linked in both the GL application and the X server.  Note that the
+window system interface to the GL core, although it is GLX in both cases,
+is a different library in each case.  This demonstrates the ability of the
+GL core to be incorporated into multiple window-system libraries.
+
+Also, because of the fact that the window system libraries are different,
+there may be an exceptional need for the window system library to access
+functionality in the core not strictly allowed.  For that reason, even though
+it is not strictly correct, GL core functions that should be 100% internal
+to the core are specified as external.  Under no circumstances, however,
+are these functions to be used by the application.
+
+2. Functions
+============
+
+2.1. API-called functions
+-------------------------
+
+- The API is usually in the form of glFoo().
+
+- There are other externally visible functions that are not part of the API
+  and they are not expected to be user accessible.  These are always in
+  the form __glFoo().
+
+- Cunclusion: All externally visible function names are either in the form
+  gl* or __gl*.
+
+Most (all?) of the API functions resolve to an internal name with no
+external scope that is resolved through the API dispatch table.  Any
+given API function may resolve to a different internal function, depending
+on the state of OpenGL.
+
+A common reason for the above is during display list processing operations.
+Examples are:
+
+	__glim_Foo()	- generic implementation, immediate mode
+	__gllc_Foo()	- generic implementation, list compilation mode
+	__glle_Foo()	- generic implementation, list execution mode
+	__glce_Foo()	- generic implementation, compile&execute mode
+	__glNptim_Foo()	- Newport implementation, immediate mode
+	...
+
+Guidelines are, then:
+
+- im/lc/le/ce (right after __gl) are reserved for functions implementing
+  the API, called directly from the API dispatch table.
+- A short (usually 3-letter) abbreviation, with at least the first letter 
+  capital, specifying a platform or CPU-specific implementation, may be 
+  placed before the im/lc/le/ce specifiers.
+  Examples: (Npt/EXP/Rex/S3V/Mips/I386).
+  Combinations are allowed (NptMips/S3VI386), if needed.
+
+
+2.2. Globally Visible functions
+-------------------------
+
+Naming conventions:
+
+- Globally visible functions (non-static) always begin with __gl.
+- Function names are mixed case of the form __glOneTwoThree().  
+- No underscores, except for the leading ones.
+- Implentation rules apply, as in __glNptFoo().
+- If possible, use the rules in the section 4.
+
+Other details:
+
+- Use __GL_SETUP*() macros to obtain gc.
+- Use the return-type specifier GLAPI for functions that return values
+  to the user.
+
+2.3. Static functions
+---------------------
+
+- Same naming conventions as in global functions, described in 1.2, except
+  that there is no leading __gl.
+
+2.4. Function prototypes
+------------------------
+
+- Include a full prototype (with variables) as in:
+	GLint __glFoo(__GLcontext *gc, GLint width, GLint height);
+- Return value in the same line as the prototype.
+- Preferably, the prototypes for functions in foo.c should exist in file
+  foo.h.  However, exceptions exist.  Use common sense.
+- If a .h file contains prototypes for multiple .c files, prefix the
+  section of the .h file with the prototypes for a particular .c file
+  with the file name, as in:
+	/* foo.c */
+	GLvoid __glFoo1(GLvoid);
+	GLvoid __glFoo2(GLvoid);
+
+	/* bar.c */
+	...
+- Try to group function prototypes in a sensical way.
+
+
+3. Variables, Types, Defines and Macros
+=======================================
+
+3.1. Types
+----------
+
+- All externally visible types are of the form GLfoo, as in GLint, GLfloat, 
+  etc.
+
+- All internally visible types are of the form __GLfoo, as in __GLfloat.
+  Note that __GLfloat and GLfloat may have different sizes.
+
+- All structure definitions have a corresponding typedef.
+
+- All structures definitions are of the form __GLfooRec, typedefed to
+  __GLfoo.  They should be used by the typedef name, not the structure name.
+
+- Naming conventions for typedefs follow the same conventions as internal
+  types, as in __GLcontext, __GLviewport, etc.  
+
+- Type naming conventions follow the form __GLoneTwoThree.  Similar to
+  functions, except for the case of the GL and the case of the first letter
+  of the first word.
+
+- All types local (static) to a file (not specified in a .h file) follow
+  the same convensions as static functions, ie. OneTwoThree
+
+- Use GL specific types instead of generic types: GLint instead of int.
+  Prefer internal types to external types, since internal type sizes can
+  change depending on the implementation, while external ones cannot.
+  Prefer __GLfloat to GLfloat to float.
+
+3.2. Variables
+--------------
+
+3.2.1. Global variables
+
+- Should not exist.  Think what you want to do.  Most probably you should
+  put them in the context.
+- If you must (as in os.h), they are of the form __gl_foo (as in __gl_context).
+
+3.2.2. Static variables to a file
+
+- Again, should not exist.  As with globals, there should be put in the
+  context.  There are multi-thread safe issues here.
+- There is no fixed naming convention, since they should not exist.
+  Exercise caution and common sense.
+
+3.2.3. Variables/functions in a structure
+
+- They should be of the form oneTwoThree.
+- If there are multiple functions/variables that are similar, but differ in 
+  dimentionality, try:
+  a. Place the part of the name that varies at the end.
+  b. Create an array of them.
+
+3.3. Defines
+------------
+
+- API visible defines are of the form GL_FOO (all capitals).
+- Internal global defines should be of the form __GL_FOO (all capitals).
+- Words are seperated with '_' (underscores), as opposed to variable names
+  where word seperation is done with capitilization.
+- Qualifiers go before descriptions, as in __GL_MAX_VERTEX_SIZE
+- Avoid verbs, as in __GL_NEED_FOOD.
+- Implementation specific defines are specified as expeced:
+  For example: __GL_NPT_MAX_VERTEX_SIZE (note: all caps).
+
+#if's, etc.:
+
+- Always use #if defined(), not #ifdef.
+- #else and #endif specify with #if they match:
+	#if defined(__GL_A) && !defined(__GL_B)
+	#else /* __GL_A && !__GL_B */
+	#endif /* __GL_A && !__GL_B */
+
+3.4. Macros
+-----------
+
+- Same conventions as defines.
+- Verbs are allowed.  Verbs should come first.
+
+
+4. OTHER CONVENTIONS
+====================
+
+4.1. Naming conventions
+-----------------------
+
+Use:
+    Accum	Accumulation Buffer
+    Attrib	Attribute
+    Aux		Auxiliary
+    CCW		Counter Clockwise
+    Clip	Clipping
+    CMYK	Cyan Magenta Yellow Black
+    Coeff	Coefficient
+    Coord	Coordinate
+    CW		Clockwise
+    Decr	Decrement
+    Dim		Dimension
+    Dst		Destination
+    Env		Environment
+    Eval	Evaluate
+    Exp		Exponential
+    FR		Fragment rasterizer
+    Func	Function
+    Gequal	Greater than or equal to
+    Gen		Generate
+    Incr	Increment
+    Index	Color Index
+    Lequal	Less than or equal to
+    Light Model	Lighting Model
+    Line	a 2 endpoint line.
+    List	Display List
+    LLoop	Line Loop
+    LSB		Least significant bit
+    LStrip	Line Strip
+    Mag		Magnify
+    Max		Maximum
+    Min		Minify
+    MSB		Most significant bit
+    Mult	Multiply
+    OG		Online-Generation of code
+    Op		Operation
+    Ortho	Orthographic
+    Pname	ParameterName
+    Pre		Premultiply
+    Pos		Position		(function names only)
+    Quad	Quadrilateral
+    Rect	Rectangle
+    Ref		Reference
+    RGB		Red Green Blue
+    RGBA	Red Green Blue Alpha
+    Shade Model	Shading Model
+    Src		Source
+    Tex		Texture			(function names only)
+    TFan	Triangle Fan
+    TStrip	Triangle Strip
+    QStrip	Quad Strip
+    Quad	a quad.
+
+Don't use:
+
+    Bgn		Begin
+    C		Color
+    h		height
+    Pnt		Point
+    Cpack	Color Pack
+    N		Normal
+    Poly	Polygon			Poly means multiple
+    T		Texture Coordinate
+    Tri		Triangle
+    V		Vertex
+    w		width
+    Z		Depth
+
+Conventions (apply to structure definitions, code snippets, etc.):
+
+    - X preceeds Y preceeds Z(depth) preceeds W
+    - R preceeds G preceeds G preceeds A
+    - Position preceeds Color preceeds Fog preceeds Texture
+    - RGB preceeds CI
+    - 0 preceeds 1, etc.  (as in x0, x1)
+    - width preceeds height
+    - x/y preceeds width/height
+    - Use order of corresponding enums.  For example:
+      - GL_AMBIENT preceeds GL_DIFFUSE preceeds GL_SPECULAR
+      - Corrollary: For code that is otherwise order independent: place code 
+        that deals with ambient lighting before code that deals with 
+        diffuse lighting, etc.
+      - GL_POINTS preceeds GL_LINES preceeds GL_LINE_LOOP ... GL_POLYGON.
+      - Corrollary: For code that is otherwise order independent: place code
+        that deals with points before code that deals with lines, etc.
+
+Function parameter passing:
+    - gc is always first.
+    - Arrays are always passed last.
+    - An array is always preceeded by its type.
+    - <pname> preceeded <param>
+    - format preceeded type
+    - target is first
+    - face is first
+

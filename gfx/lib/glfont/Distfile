@@ -1,0 +1,10 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/lib/glfont/Distfile#4 $
+#
+
+DISTFILES_SI = \
+	glfont.h /xc/include/GL/glfont.h \
+	Imakefile /xc/lib/GL/libglfont/Imakefile \
+	glfont.c /xc/lib/GL/libglfont/glfont.c \
+	$(NULL)

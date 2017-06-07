@@ -1,0 +1,156 @@
+Kurt Akeley
+13 February 1992
+OpenGL syntax rules
+
+Required abbreviations
+----------------------
+
+    Accum	Accumulation Buffer
+    Attrib	Attribute
+    Aux		Auxiliary
+    CCW		Counter Clockwise
+    Clip	Clipping
+    CMYK	Cyan Magenta Yellow Black
+    Coeff	Coefficient
+    Coord	Coordinate
+    CW		Clockwise
+    Decr	Decrement
+    Dim		Dimension
+    Dst		Destination
+    Env		Environment
+    Eval	Evaluate
+    Exp		Exponential
+    Func	Function
+    Gequal	Greater than or equal to
+    Gen		Generate
+    Incr	Increment
+    Index	Color Index
+    Lequal	Less than or equal to
+    Light Model	Lighting Model
+    List	Display List
+    LSB		Least significant bit
+    Mag		Magnify
+    Max		Maximum
+    Min		Minify
+    Mult	Multiply
+    Op		Operation
+    Ortho	Orthographic
+    Pname	ParameterName
+    Pos		Position		(function names only)
+    Quad	Quadrilateral
+    Rect	Rectangle
+    Ref		Reference
+    RGB		Red Green Blue
+    RGBA	Red Green Blue Alpha
+    Shade Model	Shading Model
+    Src		Source
+    Tex		Texture			(function names only)
+
+Abbreviations specifically not allowed
+--------------------------------------
+
+    Bgn		Begin
+    C		Color
+    Pnt		Point
+    Cpack	Color Pack
+    N		Normal
+    Poly	Polygon			Poly means multiple
+    T		Texture Coordinate
+    Tri		Triangle
+    V		Vertex
+
+Compound words
+--------------
+
+    Antialias
+    Bitmap
+    Cutoff
+    Doublebuffer
+    Feedback
+    Framebuffer
+    Modelview
+    Noop
+    Notequal
+    Subpixel
+    Viewport
+    Writemask
+
+Name rules (for all names)
+--------------------------
+
+    Use no abbreviations other than those mentioned above, and always
+    use those abbreviations.
+
+    Use Depth, never Z.
+
+Procedure name rules
+--------------------
+
+    Limit procedure names to 2 words, 3 for procedures that return state.
+
+    Never use set, as in SetFeedbackBuffer.
+
+    Begin each word with a capital letter, except the second word of
+    compound words.
+
+    Use Verb-noun (DeleteList) and adjective-noun (EdgeFlag) formats.
+
+Definition name rules
+---------------------
+
+    Use all capital letters.
+
+    Separate words with underbars, except words within compound words.
+
+    Append simple numeric suffixes directly to the end of definition
+    tokens (LIGHT0).  Begin these sequences with 0.
+
+    Use an underbar to separate complex suffixes from the token body
+    (MAP_3V).
+
+Parameter name rules
+--------------------
+
+    <target> is reserved for the notion of "which is affected", and for
+    the corresponding "which is returned" get commands.
+
+    <params> is reserved for an array of parameters whose contents are
+    defined by a second enumerated argument, called <pname>.
+
+    Begin number sequences with 1, not 0.  (e.g. u1,u2, not u0,u1)
+
+Parameter order
+---------------
+
+    X preceeds Y preceeds Z preceeds W.
+
+    R preceeds B preceeds B preceeds A.
+
+    The array being passed is always the last argument.
+
+    If a passed array has a type, the type specification argument immediately
+    precedes the array.
+
+    <pname> always preceeds <params>.
+
+    x and y preceed width and height
+
+    format preceeds type
+
+    target is first
+
+    face is first
+
+Suffix codes
+------------
+
+    i		signed 32-bit integer
+    ui		unsigned 32-bit integer
+    s		signed 16-bit integer
+    us		unsigned 16-bit integer
+    b		signed 8-bit integer
+    ub		unsigned 8-bit integer
+    f		32-bit float
+    d		64-bit float
+    l		logical
+    v		vector format

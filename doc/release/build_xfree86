@@ -1,0 +1,149 @@
+    OpenGL 1.2.1 Sample Implementation Build Instructions for XFree86
+
+DIRECTORY STRUCTURE
+
+    (This section, as well as step (2) below, only apply if you're
+    starting with a tarball in X tree structure. Otherwise (e.g. if
+    you're following instructions in $TOPDIR/README.1st), you should
+    have already copied SI files into the X tree.)
+
+    The tar file containing the SI extracts into the following directory
+    hierarchy:
+
+    xc				    Additions to XFree86 source tree
+    xc/doc			    Man pages and specifications
+    xc/include/GL		    Client header files
+    xc/lib/GL			    Client library source code
+    xc/programs/Xserver/include/GL  Server header files
+    xc/programs/Xserver/GL	    Server source code
+    xc/programs/Xserver/GL/opengl   Server OpenGL renderer
+
+    Everything under the 'xc' directory drops into the corresponding
+    location in the XFree86 3.3.5 source tree.
+
+
+SUPPORTED PLATFORMS
+
+    As distributed, the SI builds against an XFree86 3.3.5 source tree. We
+    will migrate to supporting the next major XFree86 release (4.0) when
+    that becomes available. There may also be a change in the location
+    of the client and server GLX and GL directories within the xc/
+    hierarchy.
+
+    We build on a system running SGI Linux 1.1 (kernel version 2.2.10,
+    otherwise similar to Red Hat Linux 6.0) with the standard GNU
+    toolset provided by Red Hat. The SI has been tested running as part
+    of the XF86_SVGA server in 8 and 16 bit depths.
+
+    The GLw widget has not been tested on Linux due to lack of a Motif
+    implementation, but it has been tested on Irix.
+
+
+BUILDING
+
+    1) Set the environment variable XTOPDIR to point to the top of the
+       XFree86 3.3.5 source tree (e.g. $XTOPDIR/xc should exist and contain
+       the top-level XFree86 Imakefile). Set the environment variable
+       RELEASEDIR to point to the directory containing the SI tar file
+       (1.2.1.##.tgz, where '##' is the latest released version of the SI).
+
+    2) Change directory to $XTOPDIR, then uncompress and untar the SI. Files
+       will be extracted directly into the correct locations in the XFree86
+       tree:
+
+	% cd $XTOPDIR
+	% tar xzf $RELEASEDIR/1.2.1.##.tgz
+
+	Or, if not using GNU tar:
+
+	% cd $XTOPDIR
+	% gzip -d $RELEASDIR/1.2.1.##.tgz | tar xf -
+
+    3) If you have not already done so, read $XTOPDIR/README.OPENGL.
+
+    4) Add the following definitions to $XTOPDIR/xc/config/cf/host.def:
+
+	    #define GlxModule NO
+	    #define BuildGlxExt YES
+	    #define GlxStaticServerLib GL/LibraryTargetName(dixGL) \
+				       GL/opengl/LibraryTargetName(GLcore)
+	    #define GlxStaticServerDir GL
+
+	Setting BuildGlxExt causes the build to descend into the GLX client
+	(xc/lib/GL) and server (xc/programs/Xserver/GL) directories and
+	build libraries there.
+
+	If you're not familiar with XFree86 builds: you'll probably
+	want to turn off building all the servers except the one
+	specific to your hardware. For example, our reference board uses
+	the XF86_SVGA server, so we put the following in host.def:
+
+	    #define XF86SVGAServer	    YES
+	    #define XF86VGA16Server	    NO
+	    #define XF86VGA16DualServer     NO
+	    #define XF86MonoServer	    NO
+	    #define XF86MonoDualServer	    NO
+	    #define XF86S3Server	    NO
+	    #define XF86S3VServer	    NO
+	    #define XF86I8514Server	    NO
+	    #define XF86Mach8Server	    NO
+	    #define XF86Mach32Server	    NO
+	    #define XF86Mach64Server	    NO
+	    #define XF86P9000Server	    NO
+	    #define XF86AGXServer	    NO
+	    #define XF86W32Server	    NO
+	    #define XF86I128Server	    NO
+	    #define XF86GLINTServer	    NO
+	    #define XF86FBDevServer	    NO
+	    #define XprtServer		    NO
+	    #define XnestServer		    NO
+	    #define XVirtualFramebufferServer NO
+
+	Doing this will speed up the build process considerably.
+
+    5) Building the GLw widget requires Motif, which most Linux systems
+       do not have preinstalled; therefore it is disabled by default. If
+       you have Motif installed and wish to build the GLw widget, add
+       the following to host.def:
+
+	#define BuildGlw YES
+
+    6) Make the following change to xc/programs/Xserver/Imakefile. This
+       will cause the server GLX library to be built when BuildGlxExt is
+       defined and the non-stub Glx library is being built:
+
+	51c51
+	<	  GLXDIR =
+	---
+	>	  GLXDIR = GlxStaticServerDir
+
+    7) Make the following change to xc/lib/Imakefile. This will cause
+       the client GLX library to be built when BuildGlxExt is defined.
+
+	59a60,63
+	> #if BuildGlxExt
+	> GLXLIBDIR = GL
+	> #endif
+	>
+	78c82
+	< SUBDIRS = $(BERKDIR) xtrans $(LINTSUBDIRS) $(FONTSUBDIR)
+	---
+	> SUBDIRS = $(BERKDIR) xtrans $(LINTSUBDIRS) $(FONTSUBDIR) $(GLXLIBDIR)
+
+    8) You should be able to build the XFree86 server and client
+       libraries normally at this point by descending to $XTOPDIR/xc and
+       'make World'.
+
+    9) The conformance tests (included if you're an OpenGL licensee) and
+       sample programs are not built by 'make World'. You can build them
+       as follows:
+
+	% cd $XTOPDIR/xc/test/GL/conform
+	% imake -I$XTOPDIR/xc/config/cf -DTOPDIR=$XTOPDIR/xc
+	% make Makefiles
+	% make
+
+	% cd $XTOPDIR/xc/contrib/GL
+	% imake -I$XTOPDIR/xc/config/cf -DTOPDIR=$XTOPDIR/xc
+	% make Makefiles
+	% make

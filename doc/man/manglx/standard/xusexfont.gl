@@ -1,0 +1,88 @@
+_C_ License Applicability. Except to the extent portions of this file are
+_C_ made subject to an alternative license as permitted in the SGI Free
+_C_ Software License B, Version 1.0 (the "License"), the contents of this
+_C_ file are subject only to the provisions of the License. You may not use
+_C_ this file except in compliance with the License. You may obtain a copy
+_C_ of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
+_C_ Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+_C_ 
+_C_ http://oss.sgi.com/projects/FreeB
+_C_ 
+_C_ Note that, as provided in the License, the Software is distributed on an
+_C_ "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
+_C_ DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
+_C_ CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+_C_ PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+_C_ 
+_C_ Original Code. The Original Code is: OpenGL Sample Implementation,
+_C_ Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
+_C_ Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
+_C_ Copyright in any portions created by third parties is as indicated
+_C_ elsewhere herein. All Rights Reserved.
+_C_ 
+_C_ Additional Notice Provisions: The application programming interfaces
+_C_ established by SGI in conjunction with the Original Code are The
+_C_ OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
+_C_ April 1, 1999; The OpenGL(R) Graphics System Utility Library (Version
+_C_ 1.3), released November 4, 1998; and OpenGL(R) Graphics with the X
+_C_ Window System(R) (Version 1.3), released October 19, 1998. This software
+_C_ was created using the OpenGL(R) version 1.2.1 Sample Implementation
+_C_ published by SGI, but has not been independently verified as being
+_C_ compliant with the OpenGL(R) version 1.2.1 Specification.
+_C_
+_C_ $Date$ $Revision$
+_C_ The first character in this file must be an '_'!
+_C_ Anything on a line after _C_ is ignored
+_define(_filters,eqn)_C_
+_C_      eqn is automatically replaced with neqn for nroff
+_header(XUseXFont,create bitmap display lists from an X font)
+_names(XUseXFont)
+.EQ
+delim $$
+.EN
+.SH PARAMETERS
+_phead(_param1)
+Specifies the font from which character glyphs are to be taken.
+_phead(_param2)
+Specifies the index of the first glyph to be taken.
+_phead(_param3)
+Specifies the number of glyphs to be taken.
+_phead(_param4)
+Specifies the index of the first display list to be generated.
+.SH DESCRIPTION
+_cmnd generates _param3 display lists,
+named _param4 through _param4\&+\&_param3\&\-\&1,
+each containing a single _cmnd(Bitmap) command.
+The parameters of the _cmnd(Bitmap) command of display list _param4\&+\f2i\fP
+are derived from glyph _param2\&+\f2i\fP.
+Bitmap parameters \f2xorig, yorig, width,\fP and \f2height\fP
+are computed from font metrics as
+\f2descent\-1, \-lbearing,\fP
+\f2rbearing\-lbearing,\fP and \f2ascent+descent\fP, respectively.
+\f2xmove\fP is taken from the glyph's \f2width\fP metric,
+and \f2ymove\fP is set to zero.
+Finally,
+the glyph's image is converted to the appropriate format for _cmnd(Bitmap).
+.P
+Using _cmnd may be more efficient than accessing the X font and generating
+the display lists explicitly,
+both because the display lists are created on the server without requiring
+a round trip of the glyph data,
+and because the server may choose to delay the creation of each
+bitmap until it is accessed.
+.P
+Empty display lists are created for all glyphs that are requested and
+are not defined in _param1.
+_cmnd is ignored if there is no current GLX context.
+.SH ERRORS
+_xconst(BadFont) is generated if _param1 is not a valid font.
+.P
+_glxerror(BadContextState) is generated if the current GLX context is
+in display-list construction mode.
+.P
+_glxerror(BadCurrentWindow) is generated if the drawable associated
+with the current context of the calling thread is a window, and that
+window is no longer valid.
+.SH SEE ALSO
+_glcmnd(Bitmap),
+_cmnd(XMakeCurrent)

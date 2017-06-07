@@ -1,0 +1,39 @@
+#! /bin/csh -f
+#
+# Sort the entries in a spec file by the routine name.
+# 
+# Simon Hui
+# 15 March 1991
+
+onintr cleanup
+set name = $0
+set myname = $name:t		# bug with csh; can't just say $0:t
+
+if ($#argv != 2) then
+	echo "usage: $0 $myname outfile"
+	exit 
+endif
+
+set specfile = $argv[1]
+set outfile = $argv[2]
+set tmpdir = .
+set tmpout = $tmpdir/$myname"$$"
+set tmpnames = $tmpdir/$myname"$$"names
+
+# Get the definitions of valid properties.
+awk '/:/' $specfile >! $tmpout
+echo >> $tmpout
+
+# Make a sorted list of routine names.
+awk '/^[^ ]*\(/ { printf "%s\n", substr($1,1,index($1,"(")-1) }' \
+	$specfile | sort >! $tmpnames
+
+# Now go back and search for the entry of each routine in order.
+foreach a (`cat $tmpnames`)
+	awk "/^$a\(/,(NF==0)" $specfile >> $tmpout
+end
+
+/bin/mv $tmpout $outfile
+
+cleanup:
+/bin/rm -f $tmpout $tmpnames

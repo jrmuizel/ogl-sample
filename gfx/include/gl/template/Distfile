@@ -1,0 +1,12 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/include/gl/template/Distfile#7 $
+#
+
+DISTDIR_SI = /xc/include/GL
+
+DISTFILES_SI = \
+	gl.h \
+	fgl.h \
+	glu.h \
+	$(NULL)

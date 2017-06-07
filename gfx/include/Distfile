@@ -1,0 +1,10 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/include/Distfile#5 $
+#
+
+DISTDIR_SI=/gfx/include
+
+DISTFILES_SI= \
+	GNUmakefile \
+	$(NULL)

@@ -1,0 +1,168 @@
+XCOMM License Applicability. Except to the extent portions of this file are
+XCOMM made subject to an alternative license as permitted in the SGI Free
+XCOMM Software License B, Version 1.0 (the "License"), the contents of this
+XCOMM file are subject only to the provisions of the License. You may not use
+XCOMM this file except in compliance with the License. You may obtain a copy
+XCOMM of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
+XCOMM Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+XCOMM 
+XCOMM http://oss.sgi.com/projects/FreeB
+XCOMM 
+XCOMM Note that, as provided in the License, the Software is distributed on an
+XCOMM "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
+XCOMM DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
+XCOMM CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+XCOMM PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+XCOMM 
+XCOMM Original Code. The Original Code is: OpenGL Sample Implementation,
+XCOMM Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
+XCOMM Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
+XCOMM Copyright in any portions created by third parties is as indicated
+XCOMM elsewhere herein. All Rights Reserved.
+XCOMM 
+XCOMM Additional Notice Provisions: The application programming interfaces
+XCOMM established by SGI in conjunction with the Original Code are The
+XCOMM OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
+XCOMM April 1, 1999; The OpenGL(R) Graphics System Utility Library (Version
+XCOMM 1.3), released November 4, 1998; and OpenGL(R) Graphics with the X
+XCOMM Window System(R) (Version 1.3), released October 19, 1998. This software
+XCOMM was created using the OpenGL(R) version 1.2.1 Sample Implementation
+XCOMM published by SGI, but has not been independently verified as being
+XCOMM compliant with the OpenGL(R) version 1.2.1 Specification.
+XCOMM
+
+#if !HasGcc
+CPLUSPLUSLIB = $(CPLUSPLUS)
+#endif
+
+PROGRAMS = \
+	aaindex \
+	aapoly \
+	aargb \
+	accanti \
+	accpersp \
+	alpha \
+	alpha3D \
+	bezcurve \
+	bezmesh \
+	bezsurf \
+	checker \
+	clip \
+	colormat \
+	cube \
+	dof \
+	double \
+	drawf \
+	feedback \
+	fog \
+	fogindex \
+	font \
+	hello \
+	image \
+	light \
+	lines \
+	list \
+	material \
+	mipmap \
+	model \
+	movelight \
+	pickdepth \
+	picksquare \
+	planet \
+	polyoff \
+	polys \
+	quadric \
+	robot \
+	scene \
+	select \
+	smooth \
+	stencil \
+	stroke \
+	surface \
+	teapots \
+	tess \
+	tesswind \
+	texbind \
+	texgen \
+	texprox \
+	texsub \
+	texturesurf \
+	torus \
+	trim \
+	unproject \
+	varray \
+	wrap
+
+INCLUDES = \
+	-I$(TOP)/include \
+	-I$(TOP)/include/GL
+
+DEP_LIBS = \
+	$(TOP)/lib/GL/libglut/libglut.a \
+	$(TOP)/lib/GL/libglu/libGLU.a \
+	$(TOP)/lib/GL/libGL.a
+
+LOCAL_LIBS = $(DEP_LIBS) -lXmu $(XLIB)
+
+AllTarget($(PROGRAMS))
+
+NormalProgramTarget(aaindex, aaindex.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(aapoly, aapoly.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(aargb, aargb.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(accanti, accanti.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(accpersp, accpersp.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(alpha, alpha.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(alpha3D, alpha3D.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(bezcurve, bezcurve.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(bezmesh, bezmesh.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(bezsurf, bezsurf.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(checker, checker.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(clip, clip.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(colormat, colormat.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(cube, cube.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(dof, dof.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(double, double.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(drawf, drawf.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(feedback, feedback.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(fog, fog.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(fogindex, fogindex.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(font, font.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(hello, hello.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(image, image.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(jitter, jitter.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(light, light.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(lines, lines.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(list, list.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(material, material.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(mipmap, mipmap.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(model, model.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(movelight, movelight.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(pickdepth, pickdepth.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(picksquare, picksquare.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(planet, planet.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(polyoff, polyoff.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(polys, polys.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(quadric, quadric.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(robot, robot.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(scene, scene.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(select, select.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(smooth, smooth.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(stencil, stencil.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(stroke, stroke.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalCplusplusProgramTarget(surface, surface.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(teapots, teapots.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(tess, tess.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(tesswind, tesswind.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(texbind, texbind.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(texgen, texgen.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(texprox, texprox.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(texsub, texsub.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(texturesurf, texturesurf.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(torus, torus.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalCplusplusProgramTarget(trim, trim.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(unproject, unproject.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalProgramTarget(varray, varray.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+NormalCplusplusProgramTarget(wrap, wrap.o, $(DEP_LIBS), $(LOCAL_LIBS), -lm $(CPLUSPLUS))
+
+DependTarget()
+CleanTarget()

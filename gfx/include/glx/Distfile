@@ -1,0 +1,10 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/include/glx/Distfile#5 $
+#
+
+DISTFILES_SI = \
+	glx.h /xc/include/GL/glx.h \
+	glxtokens.h /xc/include/GL/glxtokens.h \
+	glx_ansic.h /xc/programs/Xserver/include/GL/glx_ansic.h \
+	$(NULL)

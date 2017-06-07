@@ -1,0 +1,35 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/doc/man/manglx/html/Distfile#4 $
+#
+
+DISTDIR_SI = /xc/doc/hardcopy/GL/html/glw
+
+DISTFILES_SI = \
+	xchoosevisual.html \
+	xcopycontext.html \
+	xcreatecontext.html \
+	xcreateglxpixmap.html \
+	xdestroycontext.html \
+	xdestroyglxpixmap.html \
+	xfreecontextext.html \
+	xgetclientstring.html \
+	xgetconfig.html \
+	xgetcontextidext.html \
+	xgetcurrentcontext.html \
+	xgetcurrentdisplay.html \
+	xgetcurrentdrawable.html \
+	ximportcontextext.html \
+	xintro.html \
+	xisdirect.html \
+	xmakecurrent.html \
+	xquerycontextinfoext.html \
+	xqueryextension.html \
+	xqueryextensionsstring.html \
+	xqueryserverstring.html \
+	xqueryversion.html \
+	xswapbuffers.html \
+	xusexfont.html \
+	xwaitgl.html \
+	xwaitx.html \
+	$(NULL)

@@ -1,0 +1,255 @@
+.\"
+.\" 
+.\"           Copyright (c) Digital Equipment Corporation, 1995
+.\" 
+.\"                          All Rights Reserved
+.\" 
+.\" Permission to use, copy, modify, and distribute  this software and its
+.\" documentation for any  purpose   and without fee  is  hereby  granted,
+.\" provided that the above copyright notice appear in all copies and that
+.\" both  that  copyright  notice  and  this  permission notice appear  in
+.\" supporting documentation, and that the name of Digital  not be used in
+.\" advertising or publicity  pertaining to distribution  of the  software
+.\" without specific, written prior permission.
+.\" 
+.\" DIGITAL DISCLAIMS   ALL  WARRANTIES WITH   REGARD   TO  THIS SOFTWARE,
+.\" INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
+.\" EVENT   SHALL  DIGITAL  BE   LIABLE  FOR  ANY SPECIAL,   INDIRECT   OR
+.\" CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+.\" USE, DATA OR PROFITS, WHETHER IN AN ACTION  OF CONTRACT, NEGLIGENCE OR
+.\" OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+.\" PERFORMANCE OF THIS SOFTWARE.
+.\" 
+.\"
+.\"
+.\" HISTORY
+.\"
+.TH XGLINFO 1 "OpenGL Release 1.0"
+.SH NAME
+xglinfo \- display & visual information utility for OpenGL with the X Window System
+.SH SYNOPSIS
+.B "xglinfo"
+[-help] [\-display \fIdisplayname\fP] [-vid rgb | rgba | ci | all ] [-screen n]
+.br
+[\+\-printDisplayInfo] [\+\-printScreenInfo] [\+\-printVisualInfo]
+.br
+[\+\-printCookedVisualInfo]
+
+.SH OPTIONS
+.PP
+Many of these switches take either a '+' or a '-'. If the argument is
+preceded by a '+' the option is turned on. If the argument is
+preceded by a '-' the option is turned off.
+.PP
+.TP 8
+.B "\-help"
+Print out the `Usage:' command syntax summary.
+.PP
+.TP 8
+.B \-display \f2display\fP
+This option allows you to specify the server to connect to; see \f2X(1X)\fP.
+.PP
+.TP 8
+.B "\-vid rgb | rgba | ci | all"
+Print only the visual ids that OpenGL supports, one per line.
+The \f2-vid\fP argument specfies whether you want just RGB visuals, RGBA,
+visuals, COLOR INDEX visuals, or ALL OpenGL visuals.
+Amongst other things, this allows you to iterate over the OpenGL visuals on a
+screen. For example in the C shell you could do this.
+.br
+.DS
+foreach id (`xglinfo -vid rgb`)
+    benchmark -vid $id
+end
+.DE
+.PP
+.TP 8
+.B "\-screen \f2n\fP"
+Normally all screens on the display are processed. This option forces only
+screen number \f2n\fP to be processed.
+.PP
+.TP 8
+.B "\[\+\-]printDisplayInfo"
+Toggle printing of the display information. Default is on (\+).
+.PP
+.TP 8
+.B "\[\+\-]printScreenInfo"
+Toggle printing of the screen information. Default is on (\+).
+.PP
+.TP 8
+.B "\[\+\-]printVisualInfo"
+Toggle printing of the visual information. Default is on (\+).
+.PP
+.TP 8
+.B "\[\+\-]printCookedVisualInfo"
+Toggle whether printing of the visual information is cooked.
+Cooked means that the information is presented in human readable, user
+friendly manner rather just the raw data.
+Default is on (\+).
+.SH DESCRIPTION
+.PP
+.I Xglinfo
+is a utility for displaying information about an X server supporting the
+OpenGL extension, especially with regards to visuals.  It is used to examine
+the capabilities of a server, the predefined values for various parameters
+used in communicating between clients and the server, and the different types
+of screens and visuals that are available. It includes the same set of
+information as xdpyinfo, but is extended to display information about OpenGL
+visuals, OpenGL versions, and OpenGL extensions. In contrast to xdpyinfo the
+amount and form of information displayed is controllable by command line
+arguments.
+.PP
+The amount of information displayed is controllable by the command line
+switches. Many of these switches take either a '+' or a '-'. If the argument is
+preceded by a '+' the option is turned on. If the argument is
+preceded by a '-' the option is turned off.
+.PP
+The visual information can be printed in either 'raw' or 'cooked' form. The
+cooked form is the default. In the cooked form the visual information is
+analyzed and is presented in user friendly form. At the same time some basic
+error checks are performed on the combinations of visual data. The raw form
+just dumps the values returned for the visual.
+.PP
+Credit is due to Jim Fulton who wrote the original xdpyinfo while at MIT from
+which xglinfo is derived.
+.SH EXAMPLE
+.PP
+The following shows a sample produced by
+.I xglinfo
+when connected to display that supports an 24 plane screen.
+.PP
+.nf
+.in 0
+============================== Display local:0.0 ==============================
+name of display:        local:0.0
+version number:         11.0
+vendor string:          DECWINDOWS Digital Equipment Corporation DEC OSF/1 V3.0
+vendor release:         1
+max request size:       262140 bytes
+motion buffer size:     100
+bitmap:                 unit = 32, bit order = LSBFirst, padding = 32
+image byte order:       LSBFirst
+keycode range:          minimum 8, maximum 255
+focus:                  PointerRoot
+default screen num:     0
+number of screens:      1
+pixmap formats:         5 total
+                        depth  1, bits_per_pixel  1, scanline_pad 32
+                        depth  4, bits_per_pixel  8, scanline_pad 32
+                        depth  8, bits_per_pixel  8, scanline_pad 32
+                        depth 12, bits_per_pixel 32, scanline_pad 32
+                        depth 24, bits_per_pixel 32, scanline_pad 32
+Server Extensions:      10 total
+                        AccessX, Multi-Buffering, SHAPE, MIT-SHM, 
+                        Shared-Memory Transport, XInputExtension, X3D-PEX, 
+                        GLX, DEC-GLX, DECStereo, 
+GLX Extension:          error base = 150, event base = 85, Version 1.1
+GLX Library:            Vendor = DEC
+                        Version = 1.1 DEC:PKO:O3D:2.6.0:ML:2.6.0:95:06:14:OSF1:V3.2.214:CC:3.11:OPT::
+                        Extensions = (none)
+GLU Library:            Version = 1.2 DEC:PKO:O3D:2.6.0:ML:2.6.0:95:06:14:OSF1:V3.2.214:CC:3.11:OPT::
+                        Extensions = (none)
+=================================== Screen 0 ===================================
+screen:                 0
+dimensions:             1280x1024 pixels (346x277 millimeters)
+resolution:             94x94 dots per inch
+depths:                 (4 total):       1, 24, 8, 4
+root window id:         0x33
+depth of root window:   24 planes
+default visual id:      0x20
+number colormaps:       minimum 3, maximum 6
+default colormap:       0x2e, number colormap cells 256
+preallocated pixels:    black 0x0, white 0xffffff
+options:                backing-store YES, save-unders YES
+input event mask:       0x70003c
+                        ButtonPress          ButtonRelease        EnterWindow
+                        LeaveWindow          SubstructureRedirect FocusChange
+                        PropertyChange       
+GLX Server:             Vendor = DEC
+                        Version = 1.1 DEC:PKO:O3D:2.6.0:ML:2.6.0:95:07:27:OSF1:V3.2.214:CC:3.11:DBG::
+                        Extensions = (none)
+                        Useable Extensions = (none)
+GL Extension:           Vendor = DEC
+                        Renderer = ZLX-M2
+                        Version = 1.0 DEC:PKO:O3D:2.6.0:ML:2.6.0:95:07:27:OSF1:V3.2.214:CC:3.11:DBG::
+                        Extensions = DEC_primitive:1.1 primitiveDEC:1.1
+                          GL_EXT_vertex_array:1.0 GL_EXT_vertex_array
+                          DEC_stream:1.0 
+=================== 13 Visuals for Screen 0 (default = 0x20) ===================
+TrueColor visual: ID = 0x20 (hex) 32 (decimal) screen = 0
+  DOUBLE buffered MONO RGB visual with (Alpha Z Stencil Accum)
+  GL Sizes: RGBA=(8,8,8,8), Z=24, Stencil=24, Accum=(16,16,16,16)
+  Core X: depth=24, colormapSize=256 RGB: masks=(0xff0000,0xff00,0xff) bits=8
+
+TrueColor visual: ID = 0x21 (hex) 33 (decimal) screen = 0
+  DOUBLE buffered MONO RGB visual with (Z Stencil Accum)
+  GL Sizes: RGBA=(8,8,8,0), Z=24, Stencil=24, Accum=(16,16,16,0)
+  Core X: depth=24, colormapSize=256 RGB: masks=(0xff0000,0xff00,0xff) bits=8
+
+TrueColor visual: ID = 0x22 (hex) 34 (decimal) screen = 0
+  SINGLE buffered MONO RGB visual with (Alpha Z Stencil Accum)
+  GL Sizes: RGBA=(8,8,8,8), Z=24, Stencil=24, Accum=(16,16,16,16)
+  Core X: depth=24, colormapSize=256 RGB: masks=(0xff0000,0xff00,0xff) bits=8
+
+TrueColor visual: ID = 0x23 (hex) 35 (decimal) screen = 0
+  SINGLE buffered MONO RGB visual with (Z Stencil Accum)
+  GL Sizes: RGBA=(8,8,8,0), Z=24, Stencil=24, Accum=(16,16,16,0)
+  Core X: depth=24, colormapSize=256 RGB: masks=(0xff0000,0xff00,0xff) bits=8
+
+DirectColor visual: ID = 0x24 (hex) 36 (decimal) screen = 0
+  GL NOT SUPPORTED
+  Core X: depth=24, colormapSize=256 RGB: masks=(0xff0000,0xff00,0xff) bits=8
+
+PseudoColor visual: ID = 0x25 (hex) 37 (decimal) screen = 0
+  DOUBLE buffered MONO COLOR INDEX visual with (Z Stencil)
+  GL Sizes: ColorIndex=8, Z=24, Stencil=24
+  Core X: depth=8, colormapSize=256 
+
+PseudoColor visual: ID = 0x26 (hex) 38 (decimal) screen = 0
+  SINGLE buffered MONO COLOR INDEX visual with (Z Stencil)
+  GL Sizes: ColorIndex=8, Z=24, Stencil=24
+  Core X: depth=8, colormapSize=256 
+
+StaticGray visual: ID = 0x27 (hex) 39 (decimal) screen = 0
+  GL NOT SUPPORTED
+  Core X: depth=8, colormapSize=256 
+
+StaticColor visual: ID = 0x28 (hex) 40 (decimal) screen = 0
+  GL NOT SUPPORTED
+  Core X: depth=8, colormapSize=256 
+
+TrueColor visual: ID = 0x29 (hex) 41 (decimal) screen = 0
+  GL NOT SUPPORTED
+  Core X: depth=8, colormapSize=256 RGB: masks=(0xe0,0x1c,0x3) bits=8
+
+TrueColor visual: ID = 0x2a (hex) 42 (decimal) screen = 0
+  GL NOT SUPPORTED
+  Core X: depth=8, colormapSize=256 RGB: masks=(0xe0,0x1c,0x3) bits=8
+
+GrayScale visual: ID = 0x2b (hex) 43 (decimal) screen = 0
+  GL NOT SUPPORTED
+  Core X: depth=8, colormapSize=256 
+
+PseudoColor visual: ID = 0x2c (hex) 44 (decimal) screen = 0
+  OVERLAY(1) SINGLE buffered MONO COLOR INDEX visual with (Z Stencil)
+  GL Sizes: ColorIndex=4, Z=24, Stencil=24
+  Core X: depth=4, colormapSize=16 
+
+.in
+.fi
+
+.SH ENVIRONMENT
+.PP
+.TP 8
+.B DISPLAY
+To get the default host, display number, and screen.
+.SH "SEE ALSO"
+X(1), xdpyinfo(1), xwininfo(1), xprop(1), xrdb(1)
+.SH COPYRIGHT
+Copyright 1993, Digital Equipment Corporation
+.SH AUTHOR
+John Dennis
+.br
+Digital Equipment Corporation
+.br
+jdennis@eng.pko.dec.com

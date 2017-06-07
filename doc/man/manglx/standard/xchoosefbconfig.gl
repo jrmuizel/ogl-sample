@@ -1,0 +1,444 @@
+_C_ License Applicability. Except to the extent portions of this file are
+_C_ made subject to an alternative license as permitted in the SGI Free
+_C_ Software License B, Version 1.0 (the "License"), the contents of this
+_C_ file are subject only to the provisions of the License. You may not use
+_C_ this file except in compliance with the License. You may obtain a copy
+_C_ of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
+_C_ Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+_C_ 
+_C_ http://oss.sgi.com/projects/FreeB
+_C_ 
+_C_ Note that, as provided in the License, the Software is distributed on an
+_C_ "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
+_C_ DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
+_C_ CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+_C_ PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+_C_ 
+_C_ Original Code. The Original Code is: OpenGL Sample Implementation,
+_C_ Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
+_C_ Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
+_C_ Copyright in any portions created by third parties is as indicated
+_C_ elsewhere herein. All Rights Reserved.
+_C_ 
+_C_ Additional Notice Provisions: The application programming interfaces
+_C_ established by SGI in conjunction with the Original Code are The
+_C_ OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
+_C_ April 1, 1999; The OpenGL(R) Graphics System Utility Library (Version
+_C_ 1.3), released November 4, 1998; and OpenGL(R) Graphics with the X
+_C_ Window System(R) (Version 1.3), released October 19, 1998. This software
+_C_ was created using the OpenGL(R) version 1.2.1 Sample Implementation
+_C_ published by SGI, but has not been independently verified as being
+_C_ compliant with the OpenGL(R) version 1.2.1 Specification.
+_C_
+_C_ $Date$ $Revision$
+_C_ The first character in this file must be an '_'!
+_C_ Anything on a line after _C_ is ignored
+_define(_filters,eqn)_C_
+_C_      eqn is automatically replaced with neqn for nroff
+_header(XChooseFBConfig,return a list of GLX frame buffer configurations that match the specified attributes)
+_names(XChooseFBConfig)
+.EQ
+delim $$
+.EN
+.SH PARAMETERS
+_phead(_param1)
+Specifies the connection to the X server.
+_phead(_param2)
+Specifies the screen number.
+_phead(_param3)
+Specifies a list of attribute/value pairs.
+The last attribute must be _xconst(None).
+_phead(_param4)
+Returns the number of elements in the list returned by _cmnd.
+.SH DESCRIPTION
+_cmnd returns GLX frame buffer configurations that match the attributes
+specified in _param3, or _xconst(NULL), if no matches are found.
+If _param3 is _xconst(NULL) then _cmnd returns an array of GLX
+frame buffer configurations that are available on the specified screen.
+If an error occurs, no frame buffer configurations exist on the
+specified screen, or if no frame buffer configurations match the
+specified attributes, then _xconst(NULL) is returned.
+Use _xcmnd(Free) to free the memory returned by
+_cmnd.
+.P
+All attributes in _param3, including boolean attributes, are
+immediately followed by the corresponding desired value. The list is
+terminated with _xconst(None). If an attribute is not specified in _param3
+then the default value (see below) is used (and the attribute is said to be 
+specified implicitly). For example, if _glxconst(STEREO) is not specified then 
+it is assumed to be _xconst(False). For some attributes, the default is 
+_glxconst(DONT_CARE) meaning that any value is OK for this attribute, so the 
+attribute will not be checked.
+.P
+Attributes are matched in an attribute-specific manner.
+Some of the attributes, such as _glxconst(LEVEL), must match the specified 
+value exactly; others, such as, _glxconst(RED_SIZE) must meet or exceed the 
+specified minimum values. If more than one GLX frame buffer configuration is found,
+then a list of configurations, sorted 
+according to the ``best'' match criteria, is returned. The match
+criteria for each attribute and the exact sorting order is
+defined below.  
+.P
+The interpretations of the various GLX visual attributes are as follows:
+.TP 25
+_glxconst(FBCONFIG_ID)
+Must be followed by a valid XID that indicates the desired GLX frame
+buffer configuration. When a _glxconst(FBCONFIG_ID) is specified, all
+attributes are ignored. The default value is _glxconst(DONT_CARE).
+.TP
+_glxconst(BUFFER_SIZE)
+Must be followed by a nonnegative integer that indicates the desired
+color index buffer size.
+The smallest index buffer of at least the specified size is preferred.
+This attribute is gnored if _glxconst(COLOR_INDEX_BIT) is not set in
+_glxconst(RENDER_TYPE). The default value is 0.
+.TP
+_glxconst(LEVEL)
+Must be followed by an integer buffer-level specification.
+This specification is honored exactly.
+Buffer level 0 corresponds to the default frame buffer of the display.
+Buffer level 1 is the first overlay frame buffer, level two the second
+overlay frame buffer, and so on.
+Negative buffer levels correspond to underlay frame buffers.
+The default value is 0.
+.TP
+_glxconst(DOUBLEBUFFER)
+Must be followed by _xconst(True) or _xconst(False). If
+_xconst(True) is specified, then
+only double-buffered frame buffer configurations are considered;
+if
+_xconst(False) is specified, then
+only single-buffered frame buffer configurations are considered.
+The default value is _glxconst(DONT_CARE).
+.TP
+_glxconst(STEREO)
+Must be followed by _xconst(True) or _xconst(False). If
+_xconst(True) is specified, then
+only stereo frame buffer configurations are considered;
+if
+_xconst(False) is specified, then
+only monoscopic frame buffer configurations are considered.
+The default value is _xconst(False).
+.TP
+_glxconst(AUX_BUFFERS)
+Must be followed by a nonnegative integer that indicates the desired
+number of auxiliary buffers.
+Configurations with the 
+smallest number of auxiliary buffers that meet or exceed
+the specified number are preferred.
+The default value is 0.
+.TP
+_glxconst(RED_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available red buffer is preferred.
+Otherwise, the largest available red buffer of at least the minimum size
+is preferred.
+The default value is 0.
+.TP
+_glxconst(GREEN_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available green buffer is preferred.
+Otherwise, the largest available green buffer of at least the minimum size
+is preferred.
+The default value is 0.
+.TP
+_glxconst(BLUE_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available blue buffer is preferred.
+Otherwise, the largest available blue buffer of at least the minimum size
+is preferred.
+The default value is 0.
+.TP
+_glxconst(ALPHA_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available alpha buffer is preferred.
+Otherwise, the largest available alpha buffer of at least the minimum size
+is preferred.
+The default value is 0.
+.TP
+_glxconst(DEPTH_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+frame buffer configurations with no depth buffer are preferred.
+Otherwise, the largest available depth buffer of at least the minimum size
+is preferred.
+The default value is 0.
+.TP
+_glxconst(STENCIL_SIZE)
+Must be followed by a nonnegative integer that indicates the desired
+number of stencil bitplanes.
+The smallest stencil buffer of at least the specified size is preferred.
+If the desired value is zero,
+frame buffer configurations with no stencil buffer are preferred.
+The default value is 0.
+.TP
+_glxconst(ACCUM_RED_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+frame buffer configurations with no red accumulation buffer are preferred.
+Otherwise, the largest possible red accumulation buffer
+of at least the minimum size is preferred.
+The default value is 0.
+.TP
+_glxconst(ACCUM_GREEN_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+frame buffer configurations with no green accumulation buffer are preferred.
+Otherwise, the largest possible green accumulation buffer
+of at least the minimum size is preferred.
+The default value is 0.
+.TP
+_glxconst(ACCUM_BLUE_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+frame buffer configurations with no blue accumulation buffer are preferred.
+Otherwise, the largest possible blue accumulation buffer
+of at least the minimum size is preferred.
+The default value is 0.
+.TP
+_glxconst(ACCUM_ALPHA_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+frame buffer configurations with no alpha accumulation buffer are preferred.
+Otherwise, the largest possible alpha accumulation buffer
+of at least the minimum size is preferred.
+The default value is 0.
+.TP
+_glxconst(RENDER_TYPE)
+Must be followed by a mask indicating which OpenGL rendering modes
+the frame buffer configuration must support.
+Valid bits are _glxconst(RGBA_BIT) and 
+_glxconst(COLOR_INDEX_BIT). If the mask is 
+set to _glxconst(RGBA_BIT) | _glxconst(COLOR_INDEX_BIT)
+then only frame buffer configurations that can be bound to both
+RGBA contexts and color index contexts will be considered.
+The default value is _glxconst(RGBA_BIT).
+.TP
+_glxconst(DRAWABLE_TYPE)
+Must be followed by a mask indicating which GLX drawable types
+the frame buffer configuration must support. Valid bits are 
+_glxconst(WINDOW_BIT),
+_glxconst(PIXMAP_BIT) and _glxconst(PBUFFER_BIT).
+For example, if mask is set to 
+_glxconst(WINDOW_BIT) | _glxconst(PIXMAP_BIT), 
+only frame buffer configurations that support both windows and GLX pixmaps
+will be considered.
+The default value is _glxconst(WINDOW_BIT).
+.TP
+_glxconst(X_RENDERABLE)
+Must be followed by _xconst(True) or _xconst(False).
+If _xconst(True) is specified, then only frame buffer configurations that
+have associated X visuals (and can be used to render to Windows and/or
+GLX pixmaps) will be considered.
+The default value is _glxconst(DONT_CARE).
+.TP
+_glxconst(X_VISUAL_TYPE)
+Must be followed by one of 
+_glxconst(TRUE_COLOR),
+_glxconst(DIRECT_COLOR),
+_glxconst(PSEUDO_COLOR),
+_glxconst(STATIC_COLOR),
+_glxconst(GRAY_SCALE),
+_glxconst(STATIC_GRAY), indicating the desired X visual type.
+Not all frame buffer configurations have an associated X visual. If 
+_glxconst(DRAWABLE_TYPE) is specified in _param3 and the
+mask that follows does not have _glxconst(WINDOW_BIT) set,
+then this value is ignored. It is also ignored if 
+_glxconst(X_RENDERABLE) is specified as _xconst(False).
+
+RGBA rendering may be supported for visuals of type 
+_glxconst(TRUE_COLOR),
+_glxconst(DIRECT_COLOR),
+_glxconst(PSEUDO_COLOR),
+or _glxconst(STATIC_COLOR), 
+but color index rendering is only supported for visuals of type
+_glxconst(PSEUDO_COLOR) or _glxconst(STATIC_COLOR)
+(i.e., single-channel visuals).
+
+The tokens _glxconst(GRAY_SCALE) and _glxconst(STATIC_GRAY) will 
+not match current OpenGL enabled visuals, but are included for future use.
+
+The default value for _glxconst(X_VISUAL_TYPE) is _glxconst(DONT_CARE).
+.TP
+_glxconst(CONFIG_CAVEAT)
+Must be followed by one of 
+_glxconst(NONE),
+_glxconst(SLOW_CONFIG),
+_glxconst(NON_CONFORMANT_CONFIG).
+If _glxconst(NONE) is specified, then only frame buffer configurations with
+no caveats will be considered; if _glxconst(SLOW_CONFIG)
+is specified, then only slow frame buffer configurations will be considered; if
+_glxconst(NON_CONFORMANT_CONFIG) is specified, then only
+non-conformant frame buffer configurations will be considered.
+The default value is _glxconst(DONT_CARE).
+.TP
+_glxconst(TRANSPARENT_TYPE)
+Must be followed by one of 
+_glxconst(NONE),
+_glxconst(TRANSPARENT_RGB),
+_glxconst(TRANSPARENT_INDEX).
+If _glxconst(NONE) is specified, then only opaque 
+frame buffer configurations will be considered; if _glxconst(TRANSPARENT_RGB)
+is specified, then only transparent
+frame buffer configurations that support RGBA rendering will be considered;
+if _glxconst(TRANSPARENT_INDEX) is specified,
+then only transparent frame buffer configurations that support color 
+index rendering will be considered.
+The default value is _glxconst(NONE).
+.TP
+_glxconst(TRANSPARENT_INDEX_VALUE)
+Must be followed by an integer value indicating the transparent
+index value; the value must be between 0 and the maximum
+framebuffer value for indices.
+Only frame buffer configurations that use the 
+specified transparent index value will be considered.
+The default value is _glxconst(DONT_CARE).
+
+This attribute is ignored unless _glxconst(TRANSPARENT_TYPE) is 
+included in _param3 and specified as _glxconst(TRANSPARENT_INDEX).
+.TP
+_glxconst(TRANSPARENT_RED_VALUE)
+Must be followed by an integer value indicating the transparent
+red value; the value must be between 0 and the maximum
+framebuffer value for red.
+Only frame buffer configurations that use the 
+specified transparent red value will be considered.
+The default value is _glxconst(DONT_CARE).
+
+This attribute is
+ignored unless _glxconst(TRANSPARENT_TYPE) is included in
+_param3 and specified as _glxconst(TRANSPARENT_RGB).
+.TP
+_glxconst(TRANSPARENT_GREEN_VALUE)
+Must be followed by an integer value indicating the transparent
+green value; the value must be between 0 and the maximum
+framebuffer value for green.
+Only frame buffer configurations that use the 
+specified transparent green value will be considered.
+The default value is _glxconst(DONT_CARE).
+
+This attribute is
+ignored unless _glxconst(TRANSPARENT_TYPE) is included in
+_param3 and specified as _glxconst(TRANSPARENT_RGB).
+.TP
+_glxconst(TRANSPARENT_BLUE_VALUE)
+Must be followed by an integer value indicating the transparent
+blue value; the value must be between 0 and the maximum
+framebuffer value for blue.
+Only frame buffer configurations that use the 
+specified transparent blue value will be considered.
+The default value is _glxconst(DONT_CARE).
+
+This attribute is
+ignored unless _glxconst(TRANSPARENT_TYPE) is included in
+_param3 and specified as _glxconst(TRANSPARENT_RGB).
+.TP
+_glxconst(TRANSPARENT_ALPHA_VALUE)
+Must be followed by an integer value indicating the transparent
+alpha value; the value must be between 0 and the maximum
+framebuffer value for alpha.
+Only frame buffer configurations that use the 
+specified transparent alpha value will be considered.
+The default value is _glxconst(DONT_CARE).
+.TE
+.P
+When more than one GLX frame buffer configuration matches the specified attributes,
+a list of matching configurations is returned. The list is sorted 
+according to the following precedence rules, which are applied in ascending 
+order (i.e., configurations
+that are considered equal by a lower numbered rule are sorted by the higher
+numbered rule):
+.TP 5
+1.
+By _glxconst(CONFIG_CAVEAT) where the precedence is _const(NONE),
+_glxconst(SLOW_CONFIG), and _glxconst(NON_CONFORMANT_CONFIG).
+.TP
+2.
+ Larger total number of RGBA color components (_glxconst(RED_SIZE),
+_glxconst(GREEN_SIZE), _glxconst(BLUE_SIZE), plus _glxconst(ALPHA_SIZE))
+that have higher number of bits. If the requested number of bits in
+_param3 is zero or _glxconst(DONT_CARE) for a particular color
+component, then the number of bits for that component is not considered.
+.TP
+3.
+Smaller _glxconst(BUFFER_SIZE).
+.TP
+4.
+Single buffered configuration (_glxconst(DOUBLEBUFFER) being
+_xconst(False) precedes a double buffered one.
+.TP
+5.
+Smaller _glxconst(AUX_BUFFERS).
+.TP
+6.
+Larger _glxconst(DEPTH_SIZE).
+.TP
+7.
+Smaller _glxconst(STENCIL_SIZE).
+.TP
+8.
+Larger total number of accumulation buffer color components
+(_glxconst(ACCUM_RED_SIZE), _glxconst(ACCUM_GREEN_SIZE),
+_glxconst(ACCUM_BLUE_SIZE), plus _glxconst(ACCUM_ALPHA_SIZE)) that have
+higher number of bits. If the requested number of bits in _param3 is
+zero or _glxconst(DONT_CARE) for a particular color component, then the
+number of bits for that component is not considered.
+.TP
+9.
+By _glxconst(X_VISUAL_TYPE) where the precedence order is
+_glxconst(TRUE_COLOR), _glxconst(DIRECT_COLOR), _glxconst(PSEUDO_COLOR),
+_glxconst(STATIC_COLOR), _glxconst(GRAY_SCALE), _glxconst(STATIC_GRAY).
+.TE
+.SH EXAMPLES
+.TP 12
+_param3 =
+{_glxconst(RENDER_TYPE), _glxconst(RGBA_BIT),
+_glxconst(RED_SIZE), 4,
+_glxconst(GREEN_SIZE), 4,
+_glxconst(BLUE_SIZE), 4,
+_xconst(None)};
+.P
+Specifies a frame buffer configuration that supports RGBA rendering
+and exists in the normal frame buffer,
+not an overlay or underlay buffer.
+The returned visual supports at least four bits each of red,
+green, and blue,
+and possibly no bits of alpha.
+It does not support stereo display.
+It may or may not have one or more auxiliary color buffers,
+a back buffer,
+a depth buffer,
+a stencil buffer,
+or an accumulation buffer.
+.SH NOTES
+_cmnd is available only if the GLX version is 1.3 or greater.
+.P
+If the GLX version is 1.1 or 1.0, the GL version must be 1.0.
+If the GLX version is 1.2, then the GL version must be 1.1.
+If the GLX version is 1.3, then the GL version must be 1.2.
+.P
+_cmnd(XGetFBConfigs) and _cmnd(XGetFBConfigAttrib) can 
+be used to implement selection algorithms other than the generic 
+one implemented by _cmnd. Call _cmnd to retrieve all the frame buffer configurations 
+on a particular screen or, alternatively, all the frame buffer configurations with
+a particular set of attributes. Next call _cmnd(GetFBConfigAttrib)
+to retrieve additional attributes for the frame buffer configurations and then
+select between them.
+.P
+GLX implementers are strongly discouraged,
+but not proscribed,
+from changing the selection algorithm used by _cmnd.
+Therefore, selections may change from release to release
+of the client-side library.
+.SH ERRORS
+_xconst(NULL) is returned if an undefined GLX attribute is
+encountered in _param3, if _param2 is invalid or if _param1 does
+not support the GLX extension.
+.SH SEE ALSO
+_cmnd(XGetFBConfigAttrib),
+_cmnd(XGetFBConfigs),
+_cmnd(XGetVisualFromFBConfig)

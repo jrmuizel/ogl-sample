@@ -1,0 +1,15 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/samples/glx/Distfile#3 $
+#
+
+DISTDIR_SI = /xc/contrib/GL/glx
+
+DISTFILES_SI = \
+	importcx.c \
+	Imakefile \
+	mipmap3d.c \
+	oglinfo.c \
+	tess.c \
+	tex3d.c \
+	$(NULL)

@@ -1,0 +1,11 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/lib/rgb/Distfile#5 $
+#
+
+DISTFILES_SI = \
+	rgb.h /xc/include/GL/rgb.h \
+	Imakefile /xc/lib/GL/librgb/Imakefile \
+	convert.c /xc/lib/GL/librgb/convert.c \
+	rgb.c /xc/lib/GL/librgb/rgb.c \
+	$(NULL)

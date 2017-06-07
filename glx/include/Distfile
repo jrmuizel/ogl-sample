@@ -1,0 +1,12 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/glx/include/Distfile#5 $
+#
+
+DISTDIR_SI = /xc/include/GL/internal
+
+DISTFILES_SI = \
+	glxproto.h\
+	glxint.h \
+	glxmd.h \
+	$(NULL)

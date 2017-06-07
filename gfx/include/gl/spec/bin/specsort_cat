@@ -1,0 +1,88 @@
+#! /bin/csh -f
+#
+# Sort the entries in a spec file by the category name.
+# 
+# Simon Hui
+# 15 March 1991
+
+onintr cleanup
+set name = $0
+set myname = $name:t		# bug with csh; can't just say $0:t
+
+if ($#argv != 2) then
+	echo "usage: $myname specfile outfile"
+	exit 
+endif
+
+set specfile = $argv[1]
+set outfile = $argv[2]
+set tmpdir = .
+set tmpout = $tmpdir/$myname"TMP$$"out
+set tmpcat = $tmpdir/$myname"TMP$$"cat
+
+# Get the definitions of valid properties.
+awk '/:/' $specfile >! $tmpout
+echo >> $tmpout
+
+
+# Make a sorted list of category names.
+awk '/category[^:]/ { if (NF==1) printf "unknown\n"; \
+		else printf "%s\n", $2; }' $specfile | sort | uniq >! $tmpcat
+
+# Now go back and search for the entry of each routine in order.
+foreach cat (`cat $tmpcat`)
+
+	echo -n $cat "..."
+
+	echo "" >> $tmpout
+	echo "################################################" >> $tmpout
+	echo "#" >> $tmpout
+	echo "# $cat commands" >> $tmpout
+	echo "#" >> $tmpout
+	echo "################################################" >> $tmpout
+	echo "" >> $tmpout
+
+	# Find the routines of that category.
+	if ($cat == unknown) then
+
+	  # Find the ones that don't have a category line.
+	  awk 'BEGIN { RS=""; FS="\n" }; \
+			/^[^ ]+\(/ { if (index( $0,"category")==0) \
+			printf "%s\n\n",$0 }' $specfile >> $tmpout
+
+	  # Find the ones that have a category line but it's blank. 
+	  awk 'BEGIN { RS=""; FS="\n" }; \
+		/^[^ ]+\(/ { for (f=1; f <= NF; f++) { \
+			if ($f ~ /^( |\t)*category( |\t)*$/ ) { \
+				printf "%s\n\n",$0; \
+				break; \
+			} \
+		  } \
+		}' $specfile >> $tmpout
+
+	# This doesn't work because newline is a field separator, not 
+	# terminator.  If the category line is the last field, it will not
+	# be matched by this pattern.
+	# awk 'BEGIN { RS=""; FS="\n" } \
+	# /category( |\t)*\n/ { printf "%s\n\n",$0}' $specfile >> $tmpout
+
+	else
+
+	  # Find the one that specify a category.
+	  awk 'BEGIN { RS=""; FS="\n" }; \
+		/^[^ ]+\(/ { for (f=1; f <= NF; f++) { \
+			if ($f ~ /^( |\t)*category( |\t)+'$cat'( |\t)*$/ ) { \
+				printf "%s\n\n",$0; \
+				break; \
+			} \
+		  } \
+		}' $specfile >> $tmpout
+	endif
+
+end
+
+/bin/mv $tmpout $outfile
+
+cleanup:
+
+/bin/rm -f $tmpout $tmpcat

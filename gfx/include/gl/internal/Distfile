@@ -1,0 +1,8 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/include/gl/internal/Distfile#7 $
+#
+
+DISTFILES_SI = \
+	glcore.h /xc/include/GL/internal/glcore.h \
+	$(NULL)

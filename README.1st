@@ -1,0 +1,216 @@
+    Release notes for the OpenGL(R) Sample Implementation (Jan. 25, 2000)
+    Jon Leech
+    OpenGL Core Engineering
+    SGI
+
+
+INTRODUCTION
+
+    These notes briefly describe the structure of the Sample
+    Implementation (SI) source tree and how it can be built. These are
+    preliminary, and people who are not highly familiar with building X
+    are likely to have trouble following these instructions.
+
+    Please bear with us as we move into the open source world. We're
+    undergoing a big transition moving from our internal Perforce-based
+    source code repository to the CVS-based repository on
+    http://oss.sgi.com, and we aren't able to build in the wide variety
+    of environments that open source developers have access to. There
+    will be startup pains as people get started using the code. Feedback
+    on problems (and fixes) to the ogl-sample@oss.sgi.com mailing list
+    will be greatly appreciated, so the build process gets easier for
+    everyone.
+
+
+TREE STRUCTURE
+
+    The source tree containing the Sample Implementation (SI) is structured
+    as follows:
+
+doc/man			Source and script tools for GL/GLU/GLX manpages
+doc/release		More detailed release notes
+gfx			GL and GLU libraries
+gfx/lib/glu		    GLU library
+gfx/lib/glw		    GLw Motif widget
+gfx/lib/opengl		    GL core rendering library
+gfx/lib/opengl/defs
+gfx/lib/opengl/include		Internal header files
+gfx/lib/opengl/generated	Generator scripts
+gfx/lib/opengl/glcore		GL core library
+gfx/include
+gfx/include/gl		    GL and GLU headers
+gfx/include/gl/spec		".spec" files for generating API and protocol wrappers
+gfx/include/gl/template		Generator scripts
+gfx/include/gl/internal
+gfx/include/glx		    GLX headers
+gfx/lib/glut		    GLUT library for samples
+gfx/lib/glfont		    Simple font library for samples
+gfx/lib/rgb		    Simple image library for samples
+gfx/samples		    Sample programs (most already open source)
+glx			GLX library
+glx/include		    Headers
+glx/lib			    Client code
+glx/server		    Server code
+tools			Build tools
+tools/man2html		    manpage -> HTML converter
+tools/libspec		    .spec file tools
+tools/include		    GNU make rules/macros
+tools/gfxinstall	    Portable install script
+
+
+BUILDING THE SAMPLE IMPLEMENTATION
+
+    QUICK RECIPE:
+
+      1) Follow the 'BUILDING IN THE SI TREE' instructions below
+	 to create the generated files.
+      2) Next, follow the 'BUILDING IN THE X TREE' instructions below
+	 to export SI files to the X tree.
+      3) Finally, follow the instructions in doc/release/build_xfree86
+	 to modify your X tree to link against and intitialize GL, then
+	 build the X server.
+
+    MORE DETAILS:
+
+    The tree can be used in two ways. First, the SI can be built
+    entirely within its own tree and the resulting libraries copied into
+    an X11R6 tree and used to build a GLX-capable X server. This is how
+    we usually work at SGI; we'll call this the "SI tree" below. The SI
+    tree is heavily based on GNU make.
+
+    Alternatively, the source tree can be exported into a different
+    structure which fits directly into an X11R6 tree, and is built as
+    part of the X build. This is how the SI is shipped to our licensees;
+    we'll call this "X tree". This uses imake, like everything else in
+    the X11 tree. It's probably going to be easier to build in the X11
+    tree at first, but moving to the SI tree over time is preferable
+    since mapping changes from files in the X tree to the SI tree is
+    tedious.
+
+    There are a number of databases and generator scripts used when
+    building within the SI tree. The generated files include GLX
+    protocol encoder and decoder routines for indirect rendering, header
+    files, and some others. When exporting into the X tree, the
+    generated files are included and the generator scripts are not. The
+    generator scripts are a mix of awk and Perl today; we'd like to move
+    completely to Perl in the near future, for better crossplatform
+    support.
+
+    Unfortunately, the two build processes are somewhat interdependent.
+    To build in the X tree, you must first build (just once) in the SI
+    tree to create the generated files that are part of what's exported.
+    To build in the SI tree and then include the resulting GL/GLX
+    libraries in a new X server, some framework in the X tree is
+    required so it will know to initialize GLX and link against the
+    GL/GLX libraries. Thus the 'QUICK RECIPE' above follows both steps
+    and leaves you with a buildable X tree including GL support.
+
+
+BUILDING IN THE SI TREE
+
+    To build the SI, you must have also have a X11R6/XFree86 source tree
+    to provide X headers. We currently build against XFree86 3.3.5 on
+    Linux and will upgrade to XFree86 4.0 when it goes public in the
+    near future.
+
+    The following environment variables are used by the build. All
+    except GLDEBUG are required.
+
+	GLDEBUG
+	    Set GLDEBUG=1 to compile everything with debug flags.
+
+	GLPRODUCT
+	    Set GLPRODUCT=DDX. Controls the type of driver to build.
+	    In the future other drivers will use a different GLPRODUCT
+	    setting.
+
+	TOPDIR
+	    Set TOPDIR to the path to the root of the SI tree (e.g. this
+	    README.1st file should be under $TOPDIR).
+
+	ROOT
+	    Set ROOT to the path to a directory used for installing
+	    scripts, headers, and libraries generated by the build.
+
+	    It's almost certainly a bad idea to just set ROOT=/ and
+	    install directly into /usr/include, /usr/lib, etc. - we
+	    recommend setting $ROOT=${TOPDIR}/root
+
+	XTOPDIR
+	    Set XTOPDIR to the path to the root of your X11R6/XFree86
+	    source tree (e.g. the 'xc' directory should be under
+	    $XTOPDIR). This is required to pick up X11 headers used in
+	    building GLX.
+
+    Once these environment variables are set, you can go to $TOPDIR and
+    'gmake World' (this can take quite awhile and consume a lot of disk
+    space, since a large number of sample programs are built. Later you
+    may wish to just rebuild the client and server libraries).
+
+    If you're going to export to the X tree, go on to the 'BUILDING IN
+    THE X TREE' instructions in the next section. Otherwise:
+
+    The result of 'gmake World' should be a tree under $ROOT including
+    these files:
+
+	$ROOT/usr/include/GL/*.h    GL, GLX, and GLU header files
+	$ROOT/usr/lib/libGL.so	    GL/GLX client library
+		      libGLU.so     GLU client library
+		      libGLw.a	    Motif GL widget
+		      libglfont.a   Support libraries for samples
+		      libglut.a		"
+		      librgb.a		"
+		      libdixGL.a    X server GLX library
+		      libGLcore.a   X server GL library (core renderer)
+
+    libdixGL.a and libGLcore.a will need to be included in your XFree86
+    build. The other libraries are client libraries which can be
+    installed in /usr/lib or just used via LD_LIBRARY_PATH.
+
+BUILDING IN THE X TREE
+
+    The export process requires all the generated files, so you'll need
+    to build in the SI tree once (as described above) first. Once we get
+    the website rolling a bit more, we should be able to regularly put
+    up tarballs of the SI files in the X tree structure distribution on
+    a regular basis, instead of requiring you to do this yourself.
+
+    The next step is to export from the SI tree to the X tree. It's
+    probably best to use an intermediate directory at first, until
+    you're comfortable with the export process - otherwise the chance of
+    scribbling over unexpected parts of the X tree is high. To export:
+
+    1) Set the environment variable 'DIST' to the directory to which the
+       files will be exported, e.g.
+
+	setenv DIST /tmp/dist
+
+    2) In $TOPDIR, install the build tools:
+
+	gmake tools_install
+
+    3) Export the files
+
+	gmake distsi
+
+    After this completes, the following directories will be created
+    under $DIST:
+
+	xc/include/GL
+	xc/lib/GL
+	xc/programs/Xserver/GL
+	xc/programs/Xserver/include/GL
+	xc/contrib/GL
+	xc/doc/man/GL
+	xc/doc/hardcopy/GL
+
+    These can then be overlaid into your X tree by:
+
+	(cd $DIST && tar cf - xc) | (cd $XTOPDIR && tar xf -)
+
+    It's also possible to just set DIST=$XTOPDIR if you're confident,
+    and avoid the intermediate step.
+
+    Finally, once you have the files installed in the X tree, refer to
+    $TOPDIR/doc/release/build_xfree86 for instructions on how to modify
+    the XFree86 build to incorporate the SI.

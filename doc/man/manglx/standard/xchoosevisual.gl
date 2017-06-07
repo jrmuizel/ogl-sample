@@ -1,0 +1,239 @@
+_C_ License Applicability. Except to the extent portions of this file are
+_C_ made subject to an alternative license as permitted in the SGI Free
+_C_ Software License B, Version 1.0 (the "License"), the contents of this
+_C_ file are subject only to the provisions of the License. You may not use
+_C_ this file except in compliance with the License. You may obtain a copy
+_C_ of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
+_C_ Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+_C_ 
+_C_ http://oss.sgi.com/projects/FreeB
+_C_ 
+_C_ Note that, as provided in the License, the Software is distributed on an
+_C_ "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
+_C_ DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
+_C_ CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+_C_ PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+_C_ 
+_C_ Original Code. The Original Code is: OpenGL Sample Implementation,
+_C_ Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
+_C_ Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
+_C_ Copyright in any portions created by third parties is as indicated
+_C_ elsewhere herein. All Rights Reserved.
+_C_ 
+_C_ Additional Notice Provisions: The application programming interfaces
+_C_ established by SGI in conjunction with the Original Code are The
+_C_ OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
+_C_ April 1, 1999; The OpenGL(R) Graphics System Utility Library (Version
+_C_ 1.3), released November 4, 1998; and OpenGL(R) Graphics with the X
+_C_ Window System(R) (Version 1.3), released October 19, 1998. This software
+_C_ was created using the OpenGL(R) version 1.2.1 Sample Implementation
+_C_ published by SGI, but has not been independently verified as being
+_C_ compliant with the OpenGL(R) version 1.2.1 Specification.
+_C_
+_C_ $Date$ $Revision$
+_C_ The first character in this file must be an '_'!
+_C_ Anything on a line after _C_ is ignored
+_define(_filters,eqn)_C_
+_C_      eqn is automatically replaced with neqn for nroff
+_header(XChooseVisual,return a visual that matches specified attributes)
+_names(XChooseVisual)
+.EQ
+delim $$
+.EN
+.SH PARAMETERS
+_phead(_param1)
+Specifies the connection to the X server.
+_phead(_param2)
+Specifies the screen number.
+_phead(_param3)
+Specifies a list of boolean attributes and integer attribute/value pairs.
+The last attribute must be _xconst(None).
+.SH DESCRIPTION
+_cmnd returns a pointer to an XVisualInfo structure describing the visual
+that best meets a minimum specification.
+The boolean GLX attributes of the visual that is returned will match the
+specified values,
+and the integer GLX attributes will meet or exceed the specified
+minimum values. 
+If all other attributes are equivalent, then TrueColor and PseudoColor
+visuals have priority over DirectColor and StaticColor visuals,
+respectively.
+If no conforming visual exists, _xconst(NULL) is returned.
+To free the data returned by this function, use _xcmnd(Free).
+.P
+All boolean GLX attributes default to _xconst(False)
+except _glxconst(USE_GL),
+which defaults to _xconst(True).
+All integer GLX attributes default to zero.
+Default specifications are superseded by attributes included in _param3.
+Boolean attributes included in _param3 are understood to be _xconst(True).
+Integer attributes and enumerated type attributes are followed immediately 
+by the corresponding desired or
+minimum value.
+The list must be terminated with _xconst(None).
+.P
+The interpretations of the various GLX visual attributes are as follows:
+.TP 22
+_glxconst(USE_GL)
+Ignored.
+Only visuals that can be rendered with GLX are considered.
+.TP
+_glxconst(BUFFER_SIZE)
+Must be followed by a nonnegative integer that indicates the desired
+color index buffer size.
+The smallest index buffer of at least the specified size is preferred.
+Ignored if _glxconst(RGBA) is asserted.
+.BP
+.TP
+_glxconst(LEVEL)
+Must be followed by an integer buffer-level specification.
+This specification is honored exactly.
+Buffer level zero corresponds to the main frame buffer of the display.
+Buffer level one is the first overlay frame buffer, level two the second
+overlay frame buffer, and so on.
+Negative buffer levels correspond to underlay frame buffers.
+.TP
+_glxconst(RGBA)
+If present,
+only TrueColor and DirectColor visuals are considered.
+Otherwise,
+only PseudoColor and StaticColor visuals are considered.
+.TP
+_glxconst(DOUBLEBUFFER)
+If present,
+only double-buffered visuals are considered.
+.BR
+Otherwise,
+only single-buffered visuals are considered.
+.TP
+_glxconst(STEREO)
+If present,
+only stereo visuals are considered.
+Otherwise,
+only monoscopic visuals are considered.
+.TP
+_glxconst(AUX_BUFFERS)
+Must be followed by a nonnegative integer that indicates the desired
+number of auxiliary buffers.
+Visuals with the 
+.BR
+smallest number of auxiliary buffers that meets or exceeds
+the specified number are preferred.
+.TP
+_glxconst(RED_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available red buffer is preferred.
+Otherwise, the largest available red buffer of at least the minimum size
+is preferred.
+.TP
+_glxconst(GREEN_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available green buffer is preferred.
+Otherwise, the largest available green buffer of at least the minimum size
+is preferred.
+.TP
+_glxconst(BLUE_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available blue buffer is preferred.
+Otherwise, the largest available blue buffer of at least the minimum size
+is preferred.
+.TP
+_glxconst(ALPHA_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+the smallest available alpha buffer is preferred.
+Otherwise, the largest available alpha buffer of at least the minimum size
+is preferred.
+.TP
+_glxconst(DEPTH_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+visuals with no depth buffer are preferred.
+Otherwise, the largest available depth buffer of at least the minimum size
+is preferred.
+.TP
+_glxconst(STENCIL_SIZE)
+Must be followed by a nonnegative integer that indicates the desired
+number of stencil bitplanes.
+The smallest stencil buffer of at least the specified size is preferred.
+If the desired value is zero,
+visuals with no stencil buffer are preferred.
+.TP
+_glxconst(ACCUM_RED_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+visuals with no red accumulation buffer are preferred.
+Otherwise, the largest possible red accumulation buffer
+of at least the minimum size is preferred.
+.TP
+_glxconst(ACCUM_GREEN_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+visuals with no green accumulation buffer are preferred.
+Otherwise, the largest possible green accumulation buffer
+of at least the minimum size is preferred.
+.TP
+_glxconst(ACCUM_BLUE_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+visuals with no blue accumulation buffer are preferred.
+Otherwise, the largest possible blue accumulation buffer
+of at least the minimum size is preferred.
+.TP
+_glxconst(ACCUM_ALPHA_SIZE)
+Must be followed by a nonnegative minimum size specification.
+If this value is zero,
+visuals with no alpha accumulation buffer are preferred.
+Otherwise, the largest possible alpha accumulation buffer
+of at least the minimum size is preferred.
+.TE
+.SH EXAMPLES
+.TP 12
+_param3 =
+{_glxconst(RGBA),
+_glxconst(RED_SIZE), 4,
+_glxconst(GREEN_SIZE), 4,
+_glxconst(BLUE_SIZE), 4,
+_xconst(None)};
+.P
+Specifies a single-buffered RGB visual in the normal frame buffer,
+not an overlay or underlay buffer.
+The returned visual supports at least four bits each of red,
+green, and blue,
+and possibly no bits of alpha.
+It does not support color index mode,
+double-buffering, or stereo display.
+It may or may not have one or more auxiliary color buffers,
+a depth buffer,
+a stencil buffer,
+or an accumulation buffer.
+.SH NOTES
+_xconst(XVisualInfo) is defined in \f2Xutil.h.\fP
+It is a structure that includes \f2visual\fP, \f2visualID\fP, \f2screen\fP, and
+\f2depth\fP elements.
+.P
+_cmnd is implemented as a client-side utility using only _xcmnd(GetVisualInfo)
+and _cmnd(XGetConfig).
+Calls to these two routines can be used to implement selection algorithms
+other than the generic one implemented by _cmnd.
+.P
+GLX implementers are strongly discouraged,
+but not proscribed,
+from changing the selection algorithm used by _cmnd.
+Therefore, selections may change from release to release
+of the client-side library.
+.P
+There is no direct filter for picking only visuals that
+support GLXPixmaps.
+GLXPixmaps are supported for visuals whose
+_glxconst(BUFFER_SIZE)
+is one of the pixmap depths supported by the X server.
+.SH ERRORS
+_xconst(NULL) is returned if an undefined GLX attribute is encountered in
+_param3.
+.SH SEE ALSO
+_cmnd(XCreateContext),
+_cmnd(XGetConfig)

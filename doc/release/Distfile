@@ -1,0 +1,13 @@
+#!gmake
+#
+# $Date$ $Revision$
+# $Header: //depot/main/doc/release/Distfile#5 $
+
+DISTDIR_SI = /xc/doc/hardcopy/GL
+
+DISTFILES_SI = \
+	build_x11r6 \
+	build_xfree86 \
+	copyright \
+	relnotes \
+	$(NULL)

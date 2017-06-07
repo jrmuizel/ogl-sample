@@ -1,0 +1,13 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/doc/man/manglw/Distfile#4 $
+#
+
+DISTDIR_SI = /xc/doc/man/GL/glw
+
+DISTFILES_SI = \
+	glwcreatemdrawingarea.3gl \
+	glwdrawingarea.3gl \
+	glwdrawingareamakecurrent.3gl \
+	glwdrawingareaswapbuffers.3gl \
+	$(NULL)

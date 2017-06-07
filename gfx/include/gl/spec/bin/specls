@@ -1,0 +1,18 @@
+#! /bin/csh -f
+#
+# List all the routine declarations in a spec file.
+# 
+# Simon Hui
+# 15 March 1991
+
+set name = $0
+set myname = $name:t		# bug with csh; can't just say $0:t
+
+if ($#argv != 1) then
+	echo "usage: $0 specfile"
+	exit 
+endif
+
+set specfile = $argv[1]
+
+awk '/^[^ ]*\(/ {print}' $specfile

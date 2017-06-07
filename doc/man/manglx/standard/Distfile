@@ -1,0 +1,36 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/doc/man/manglx/standard/Distfile#5 $
+#
+
+DISTDIR_SI = /xc/doc/man/GL/glx
+
+DISTFILES_SI = \
+	Imakefile \
+	xchoosevisual.3gl \
+	xcopycontext.3gl \
+	xcreatecontext.3gl \
+	xcreateglxpixmap.3gl \
+	xdestroycontext.3gl \
+	xdestroyglxpixmap.3gl \
+	xfreecontextext.3gl \
+	xgetclientstring.3gl \
+	xgetconfig.3gl \
+	xgetcontextidext.3gl \
+	xgetcurrentcontext.3gl \
+	xgetcurrentdisplay.3gl \
+	xgetcurrentdrawable.3gl \
+	ximportcontextext.3gl \
+	xintro.3gl \
+	xisdirect.3gl \
+	xmakecurrent.3gl \
+	xquerycontextinfoext.3gl \
+	xqueryextension.3gl \
+	xqueryextensionsstring.3gl \
+	xqueryserverstring.3gl \
+	xqueryversion.3gl \
+	xswapbuffers.3gl \
+	xusexfont.3gl \
+	xwaitgl.3gl \
+	xwaitx.3gl \
+	$(NULL)

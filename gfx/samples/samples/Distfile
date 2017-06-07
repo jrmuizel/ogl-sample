@@ -1,0 +1,47 @@
+#
+# $Header: //depot/main/gfx/samples/samples/Distfile#1 $
+#
+
+DISTDIR_SI = /xc/contrib/GL/samples
+
+DISTFILES_SI = \
+	1.rgb \
+	2.rgb \
+	3.rgb \
+	abgr.c \
+	accum.c \
+	bitmap1.c \
+	bitmap2.c \
+	blendxor.c \
+	copytex.c \
+	copy.c \
+	depth.c \
+	eval.c \
+	fog.c \
+	hiddenline.c \
+	Imakefile \
+	line.c \
+	logo.c \
+	nurb.c \
+	packedpix.c \
+	point.c \
+	prim.c \
+	quad.c \
+	select.c \
+	shell.c \
+	sphere.c \
+	star.c \
+	stencil.c \
+	stretch.c \
+	surfgrid.c \
+	teapot.c \
+	texenv.c \
+	texobj.c \
+	texproxy.c \
+	texsubimage.c \
+	texture.c \
+	tri.c \
+	twotextures.c \
+	varray.c \
+	wave.c \
+	$(NULL)

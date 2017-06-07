@@ -1,0 +1,20 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/samples/extensions/Distfile#3 $
+#
+
+DISTDIR_SI = /xc/contrib/GL/extensions
+
+DISTFILES_SI = \
+	blendeq.c \
+	blendxor.c \
+	copytex.c \
+	eval.c \
+	Imakefile \
+	surfgrid.c \
+	texenv.c \
+	texobj.c \
+	texproxy.c \
+	texsubimage.c \
+	varray.c \
+	$(NULL)

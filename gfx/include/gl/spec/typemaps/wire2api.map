@@ -1,0 +1,15 @@
+Enum	GLenum
+Char	GLchar
+
+Int8	GLchar
+Int16	GLshort
+Int32	GLint
+
+UInt8	GLuchar
+UInt16	GLushort
+UInt32	GLuint
+
+Float32	GLfloat
+Float64	GLdouble
+
+Void	GLvoid

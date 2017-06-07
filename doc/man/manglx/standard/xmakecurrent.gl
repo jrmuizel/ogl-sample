@@ -1,0 +1,126 @@
+_C_ License Applicability. Except to the extent portions of this file are
+_C_ made subject to an alternative license as permitted in the SGI Free
+_C_ Software License B, Version 1.0 (the "License"), the contents of this
+_C_ file are subject only to the provisions of the License. You may not use
+_C_ this file except in compliance with the License. You may obtain a copy
+_C_ of the License at Silicon Graphics, Inc., attn: Legal Services, 1600
+_C_ Amphitheatre Parkway, Mountain View, CA 94043-1351, or at:
+_C_ 
+_C_ http://oss.sgi.com/projects/FreeB
+_C_ 
+_C_ Note that, as provided in the License, the Software is distributed on an
+_C_ "AS IS" basis, with ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS
+_C_ DISCLAIMED, INCLUDING, WITHOUT LIMITATION, ANY IMPLIED WARRANTIES AND
+_C_ CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A
+_C_ PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+_C_ 
+_C_ Original Code. The Original Code is: OpenGL Sample Implementation,
+_C_ Version 1.2.1, released January 26, 2000, developed by Silicon Graphics,
+_C_ Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc.
+_C_ Copyright in any portions created by third parties is as indicated
+_C_ elsewhere herein. All Rights Reserved.
+_C_ 
+_C_ Additional Notice Provisions: The application programming interfaces
+_C_ established by SGI in conjunction with the Original Code are The
+_C_ OpenGL(R) Graphics System: A Specification (Version 1.2.1), released
+_C_ April 1, 1999; The OpenGL(R) Graphics System Utility Library (Version
+_C_ 1.3), released November 4, 1998; and OpenGL(R) Graphics with the X
+_C_ Window System(R) (Version 1.3), released October 19, 1998. This software
+_C_ was created using the OpenGL(R) version 1.2.1 Sample Implementation
+_C_ published by SGI, but has not been independently verified as being
+_C_ compliant with the OpenGL(R) version 1.2.1 Specification.
+_C_
+_C_ $Date$ $Revision$
+_C_ The first character in this file must be an '_'!
+_C_ Anything on a line after _C_ is ignored
+_define(_filters,eqn)_C_
+_C_      eqn is automatically replaced with neqn for nroff
+_header(XMakeCurrent,attach a GLX context to a window or a GLX pixmap)
+_names(XMakeCurrent)
+.EQ
+delim $$
+.EN
+.SH PARAMETERS
+_phead(_param1)
+Specifies the connection to the X server.
+_phead(_param2)
+Specifies a GLX drawable.
+Must be either an X window ID or a GLX pixmap ID.
+_phead(_param3)
+Specifies a GLX rendering context that is to be attached to _param2.
+.SH DESCRIPTION
+_cmnd does two things:
+It makes _param3 the current GLX rendering context of the calling thread,
+replacing the previously current context if there was one,
+and it attaches _param3 to a GLX drawable,
+either a window or a GLX pixmap.
+As a result of these two actions,
+subsequent GL rendering calls
+use rendering context _param3 to modify GLX drawable _param2 (for
+reading and writing).
+Because _cmnd always replaces the current rendering context with _param3,
+there can be only one current context per thread.
+.P
+Pending commands to the
+previous context, if any, are flushed before it is released.
+.P
+The first time _param3 is made current to any thread,
+its viewport is set to the full size of _param2.
+Subsequent calls by any thread to _cmnd with _param3
+have no effect on its viewport.
+.P
+To release the current context without assigning a new one,
+call _cmnd with _param2 set _xconst(None) and _param3
+set to _xconst(NULL)
+.P
+_cmnd returns _xconst(True) if it is successful,
+_xconst(False) otherwise.
+If _xconst(False) is returned, the previously current rendering context
+and drawable (if any) remain unchanged.
+.SH NOTES
+A \f2process\fP is a single-execution environment,
+implemented in a single address space,
+consisting of one or more threads.
+.P
+A \f2thread\fP is one of a set of subprocesses that share
+a single address space,
+but maintain separate program counters,
+stack spaces,
+and other related global data.
+A \f2thread\fP that is the only member of its subprocess group
+is equivalent to a \f2process\fP.
+.SH ERRORS
+_xconst(BadMatch) is generated if _param2 was not
+created with the same X screen and visual as _param3.
+It is also generated if _param2 is _xconst(None) and _param3 is not
+_xconst(NULL).
+.P
+_xconst(BadAccess) is generated if _param3 was current to another thread
+at the time _cmnd was called.
+.P
+_glxerror(BadDrawable) is generated if _param2 is not a valid GLX drawable.
+.P
+_glxerror(BadContext) is generated if _param3 is not a valid GLX context.
+.P
+_glxerror(BadContextState) is generated if _cmnd is executed between
+the execution of _cmnd(Begin) and the corresponding execution of _cmnd(End).
+.P
+_glxerror(BadContextState) is also generated if the rendering context current
+to the calling thread has GL renderer state _const(FEEDBACK) or
+_const(SELECT).
+.P
+_glxerror(BadCurrentWindow) is generated if there are pending GL
+commands for the previous context and the current drawable is
+a window that is no longer valid.
+.P
+_xconst(BadAlloc) may be generated if the server has delayed allocation
+of ancillary buffers until _cmnd is called, only to find that it has
+insufficient resources to complete the allocation.
+.SH SEE ALSO
+_cmnd(XCreateContext),
+_cmnd(XCreateGLXPixmap)
+_cmnd(XGetCurrentContext),
+_cmnd(XGetCurrentDisplay),
+_cmnd(XGetCurrentDrawable),
+_cmnd(XGetCurrentReadDrawable),
+_cmnd(XMakeContextCurrent)

@@ -1,0 +1,9 @@
+    OpenGL 1.2.1 Sample Implementation Release Notes
+
+    Last modified August 9, 1999
+
+Open Issues:
+
+  - GLX 1.3 protocol for OpenGL 1.2 and ARB_multitexture exists, but the
+    new GLX 1.3 APIs (pbuffers, make current read, etc.) are not
+    provided yet.

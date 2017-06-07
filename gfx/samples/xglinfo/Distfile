@@ -1,0 +1,14 @@
+#
+# $Date$ $Revision$
+# $Header: //depot/main/gfx/samples/xglinfo/Distfile#3 $
+#
+
+DISTDIR_SI = /xc/contrib/GL/xglinfo
+
+DISTFILES_SI = \
+	global.h \
+	Imakefile \
+	stringConversion.c \
+	xglinfo.c \
+	xglinfo.man \
+	$(NULL)

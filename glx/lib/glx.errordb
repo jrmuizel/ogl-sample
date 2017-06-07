@@ -1,0 +1,69 @@
+! GLX extension, shared by all OpenGL licensees
+XRequest.GLX.pixel-rw:X_GLX
+XRequest.GLX.1:X_GLXRender
+XRequest.GLX.2:X_GLXRenderLarge
+XRequest.GLX.3:X_GLXCreateContext
+XRequest.GLX.4:X_GLXDestroyContext
+XRequest.GLX.5:X_GLXMakeCurrent
+XRequest.GLX.6:X_GLXIsDirect
+XRequest.GLX.7:X_GLXQueryVersion
+XRequest.GLX.8:X_GLXWaitGL
+XRequest.GLX.9:X_GLXWaitX
+XRequest.GLX.10:X_GLXCopyContext
+XRequest.GLX.11:X_GLXSwapBuffers
+XRequest.GLX.12:X_GLXUseXFont
+XRequest.GLX.13:X_GLXCreateGLXPixmap
+XRequest.GLX.14:X_GLXGetVisualConfigs
+XRequest.GLX.15:X_GLXDestroyGLXPixmap
+XRequest.GLX.16:X_GLXVendorPrivate
+XRequest.GLX.17:X_GLXVendorPrivateWithReply
+XRequest.GLX.101:X_GLXNewList
+XRequest.GLX.102:X_GLXEndList
+XRequest.GLX.103:X_GLXDeleteLists
+XRequest.GLX.104:X_GLXGenLists
+XRequest.GLX.105:X_GLXFeedbackBuffer
+XRequest.GLX.106:X_GLXSelectBuffer
+XRequest.GLX.107:X_GLXRenderMode
+XRequest.GLX.108:X_GLXFinish
+XRequest.GLX.109:X_GLXPixelStoref
+XRequest.GLX.110:X_GLXPixelStorei
+XRequest.GLX.111:X_GLXReadPixels
+XRequest.GLX.112:X_GLXGetBooleanv
+XRequest.GLX.113:X_GLXGetClipPlane
+XRequest.GLX.114:X_GLXGetDoublev
+XRequest.GLX.115:X_GLXGetError
+XRequest.GLX.116:X_GLXGetFloatv
+XRequest.GLX.117:X_GLXGetIntegerv
+XRequest.GLX.118:X_GLXGetLightfv
+XRequest.GLX.119:X_GLXGetLightiv
+XRequest.GLX.120:X_GLXGetMapdv
+XRequest.GLX.121:X_GLXGetMapfv
+XRequest.GLX.122:X_GLXGetMapiv
+XRequest.GLX.123:X_GLXGetMaterialfv
+XRequest.GLX.124:X_GLXGetMaterialiv
+XRequest.GLX.125:X_GLXGetPixelMapfv
+XRequest.GLX.126:X_GLXGetPixelMapuiv
+XRequest.GLX.127:X_GLXGetPixelMapusv
+XRequest.GLX.128:X_GLXGetPolygonStipple
+XRequest.GLX.129:X_GLXGetString
+XRequest.GLX.130:X_GLXGetTexEnvfv
+XRequest.GLX.131:X_GLXGetTexEnviv
+XRequest.GLX.132:X_GLXGetTexGendv
+XRequest.GLX.133:X_GLXGetTexGenfv
+XRequest.GLX.134:X_GLXGetTexGeniv
+XRequest.GLX.135:X_GLXGetTexImage
+XRequest.GLX.136:X_GLXGetTexParameterfv
+XRequest.GLX.137:X_GLXGetTexParameteriv
+XRequest.GLX.138:X_GLXGetTexLevelParameterfv
+XRequest.GLX.139:X_GLXGetTexLevelParameteriv
+XRequest.GLX.140:X_GLXIsEnabled
+XRequest.GLX.141:X_GLXIsList
+XProtoError.GLX.0: GLXBadContext (invalid GLContext parameter)
+XProtoError.GLX.1: GLXBadContextState (context's RenderMode state not GL_RENDER)
+XProtoError.GLX.2: GLXBadDrawable (invalid GLX Drawable)
+XProtoError.GLX.3: GLXBadPixmap (invalid GLX Pixmap)
+XProtoError.GLX.4: GLXBadContextTag (invalid context tag)
+XProtoError.GLX.5: GLXBadCurrentWindow (invalid current window)
+XProtoError.GLX.6: GLXBadRenderRequest (invalid rendering request)
+XProtoError.GLX.7: GLXBadLargeRequest (invalid large rendering request)
+XProtoError.GLX.8: GLXUnsupportedPrivateRequest (invalid vendor private request)
